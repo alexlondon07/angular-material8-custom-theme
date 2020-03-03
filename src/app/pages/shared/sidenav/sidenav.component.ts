@@ -7,7 +7,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent implements OnInit OnInit {
+export class SidenavComponent implements OnInit {
   opened = true;
   @ViewChild('sidenav', { static: true }) sidenav: MatSidenav;
 
