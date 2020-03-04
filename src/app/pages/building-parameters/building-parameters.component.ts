@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 
-import { ubicacion, niveltransito } from 'src/app/pages/informations';
+import { ubicacion, niveltransito , materialcimentacion, materiallenocompactado } from 'src/app/pages/informations';
 
 @Component({
   selector: 'app-building-parameters',
@@ -19,6 +19,8 @@ export class BuildingParametersComponent implements OnInit {
   requiredField = 'Este campo es obligatorio';
   ubicaciones = ubicacion;
   niveltransito =  niveltransito;
+  materialcimentacion = materialcimentacion;
+  materiallenocompactado = materiallenocompactado;
 
   constructor(public snackBar: MatSnackBar, private fb: FormBuilder) { }
 
@@ -51,9 +53,12 @@ export class BuildingParametersComponent implements OnInit {
       maestros: new FormControl(1, [Validators.required]),
       sst: new FormControl(1, [Validators.required]),
       ingenieros: new FormControl(1, [Validators.required]),
-      mat_arenilla : new FormControl(1, [Validators.required]),
-      mat_triturado: new FormControl(1, [Validators.required]),
-      mat_arenilla_triturado: new FormControl(1, [Validators.required]),
+      materialcimentacion : new FormControl(1, [Validators.required]),
+      material_cimentacion_espesor : new FormControl(1, [Validators.required]),
+      material_cimentacion_espesor_2 : new FormControl(), // Espesor
+      material_lleno_compactado: new FormControl('', [Validators.required]),
+      material_lleno_espesor: new FormControl(1, [Validators.required]),
+
     });
   }
 }

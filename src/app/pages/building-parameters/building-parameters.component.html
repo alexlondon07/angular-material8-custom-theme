@@ -109,10 +109,15 @@
               </mat-grid-tile>
 
               <mat-grid-tile>
-                <div >
+                <div class="text-inside">
                   <mat-form-field>
-                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Arenilla" #mat_arenilla formControlName="mat_arenilla">
-                    <mat-error *ngIf="form.controls['mat_arenilla'].errors?.required">{{ requiredField }}</mat-error>
+                    <mat-label>Material de cimentación</mat-label>
+                    <mat-select formControlName="materialcimentacion">
+                      <mat-option *ngFor="let row of materialcimentacion" [value]="row.value">
+                        {{row.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['materialcimentacion'].errors?.required">{{ requiredField }}</mat-error>
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
@@ -120,8 +125,8 @@
               <mat-grid-tile>
                 <div >
                   <mat-form-field>
-                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Triturado" #mat_triturado formControlName="mat_triturado">
-                    <mat-error *ngIf="form.controls['mat_triturado'].errors?.required">{{ requiredField }}</mat-error>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Espesor" #material_cimentacion_espesor formControlName="material_cimentacion_espesor">
+                    <mat-error *ngIf="form.controls['material_cimentacion_espesor'].errors?.required">{{ requiredField }}</mat-error>
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
@@ -129,12 +134,34 @@
               <mat-grid-tile>
                 <div >
                   <mat-form-field>
-                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Arenilla + Triturado" #mat_arenilla_triturado formControlName="mat_arenilla_triturado">
-                    <mat-error *ngIf="form.controls['mat_arenilla_triturado'].errors?.required">{{ requiredField }}</mat-error>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Espesor triturado" #material_cimentacion_espesor_2 formControlName="material_cimentacion_espesor_2">
+                    <mat-error *ngIf="form.controls['material_cimentacion_espesor_2'].errors?.required">{{ requiredField }}</mat-error>
                   </mat-form-field>
                 </div>
               </mat-grid-tile>
 
+              <mat-grid-tile>
+                <div class="text-inside">
+                  <mat-form-field>
+                    <mat-label>Material de lleno compactado</mat-label>
+                    <mat-select formControlName="material_lleno_compactado">
+                      <mat-option *ngFor="let row of materiallenocompactado" [value]="row.value">
+                        {{row.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['material_lleno_compactado'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Espesor Material de lleno compactado" #material_lleno_espesor formControlName="material_lleno_espesor">
+                    <mat-error *ngIf="form.controls['material_lleno_espesor'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
 
             </mat-grid-list>
           </div>

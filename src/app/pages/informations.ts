@@ -21,3 +21,20 @@ export const personal = [
   { value: 'sst', name: 'SST' },
   { value: 'ingenieros', name: 'Ingenieros' }
 ];
+
+
+// Información del personal
+export const materialcimentacion = [
+  { value: 'arenilla', name: 'Arenilla' },
+  { value: 'triturado', name: 'Triturado' },
+  { value: 'arenilla_triturado', name: 'Arenilla + Triturado' },
+];
+
+
+export const materiallenocompactado = [
+  { value: 'subbase', name: 'Sub base' },
+  { value: 'basegranular', name: 'Base granular' },
+];
+
+
+
