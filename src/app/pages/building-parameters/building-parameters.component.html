@@ -1,0 +1,148 @@
+
+
+  <mat-tab-group>
+    <mat-tab label="Parametros de la obra">
+      <form [formGroup]="form">
+        <mat-card>
+          <div>
+            <mat-grid-list cols="4" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
+
+              <mat-grid-tile>
+                <div class="text-inside">
+                  <mat-form-field>
+                    <mat-label>Ubicación</mat-label>
+                    <mat-select formControlName="ubicacion">
+                      <mat-option *ngFor="let row of ubicaciones" [value]="row.value">
+                        {{row.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['ubicacion'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+
+              <mat-grid-tile>
+                <div class="text-inside">
+                  <mat-form-field>
+                    <mat-label>Nivel de tránsito</mat-label>
+                    <mat-select formControlName="niveldetransito">
+                      <mat-option *ngFor="let row of niveltransito" [value]="row.value">
+                        {{row.name}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="form.controls['niveldetransito'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Profundidad prom de excavación(ml)" #promedioExcavacion formControlName="promedioExcavacion">
+                    <mat-error *ngIf="form.controls['promedioExcavacion'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Ancho brecha" #anchobrecha formControlName="anchobrecha">
+                    <mat-error *ngIf="form.controls['anchobrecha'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Longitud tuberia a excavar" #longitud_tuberia_excabar formControlName="longitud_tuberia_excabar">
+                    <mat-error *ngIf="form.controls['longitud_tuberia_excabar'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Número de ayudantes" #ayudantes formControlName="ayudantes">
+                    <mat-error *ngIf="form.controls['ayudantes'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Número de oficiales" #oficiales formControlName="oficiales">
+                    <mat-error *ngIf="form.controls['oficiales'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Número de maestros" #maestros formControlName="maestros">
+                    <mat-error *ngIf="form.controls['maestros'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Número de SST" #sst formControlName="sst">
+                    <mat-error *ngIf="form.controls['sst'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Número de Ingenieros" #ingenieros formControlName="ingenieros">
+                    <mat-error *ngIf="form.controls['ingenieros'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Arenilla" #mat_arenilla formControlName="mat_arenilla">
+                    <mat-error *ngIf="form.controls['mat_arenilla'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Triturado" #mat_triturado formControlName="mat_triturado">
+                    <mat-error *ngIf="form.controls['mat_triturado'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+              <mat-grid-tile>
+                <div >
+                  <mat-form-field>
+                    <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Mat cimentación Arenilla + Triturado" #mat_arenilla_triturado formControlName="mat_arenilla_triturado">
+                    <mat-error *ngIf="form.controls['mat_arenilla_triturado'].errors?.required">{{ requiredField }}</mat-error>
+                  </mat-form-field>
+                </div>
+              </mat-grid-tile>
+
+
+            </mat-grid-list>
+          </div>
+        </mat-card>
+      </form>
+    </mat-tab>
+    <mat-tab label="Second">Content 2 </mat-tab>
+    <mat-tab label="Third">Content 3 </mat-tab>
+    <mat-tab label="Four">Content 4 </mat-tab>
+  </mat-tab-group>
+
