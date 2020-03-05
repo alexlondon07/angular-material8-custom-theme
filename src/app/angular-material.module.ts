@@ -2,24 +2,27 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
-   MatButtonModule,
-   MatToolbarModule,
-   MatIconModule,
-   MatBadgeModule,
-   MatSidenavModule,
-   MatListModule,
-   MatGridListModule,
-   MatFormFieldModule,
-   MatInputModule,
-   MatSelectModule,
-   MatRadioModule,
-   MatDatepickerModule,
-   MatNativeDateModule,
-   MatChipsModule,
-   MatTooltipModule,
-   MatTableModule,
-   MatPaginatorModule,
-   MatCardModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatBadgeModule,
+    MatSidenavModule,
+    MatListModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatChipsModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatCardModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    MatTabsModule
 } from '@angular/material';
 
 @NgModule({
@@ -42,9 +45,13 @@ import {
       MatTooltipModule,
       MatTableModule,
       MatPaginatorModule,
-      MatCardModule
-   ],
-   exports: [
+      MatCardModule,
+      MatMenuModule,
+      MatSnackBarModule,
+      MatTabsModule
+
+  ],
+  exports: [
       MatButtonModule,
       MatToolbarModule,
       MatIconModule,
@@ -61,11 +68,14 @@ import {
       MatTooltipModule,
       MatTableModule,
       MatPaginatorModule,
-      MatCardModule
-   ],
-   providers: [
+      MatCardModule,
+      MatMenuModule,
+      MatSnackBarModule,
+      MatTabsModule
+  ],
+  providers: [
       MatDatepickerModule,
-   ]
+  ]
 })
 
 export class AngularMaterialModule { }

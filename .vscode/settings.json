@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/22561f0a-e7e3-488a-bfc3-9208c9908a13/resourceGroups/angular-7-learning-devops/providers/Microsoft.Web/sites/angular7",
+    "appService.deploySubpath": "dist\\angular-material8-theme"
+}
