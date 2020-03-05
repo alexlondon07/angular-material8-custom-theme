@@ -59,6 +59,20 @@ export const horarios = [
 ];
 
 
+// Información de Pmst
+export const pmts = [
+  { value: 'cierres_parciales', name: 'Cierres Parciales' },
+  { value: 'cierres_totales', name: 'Cierres Totales' }
+];
+
+
+// Información de Pmst
+export const cimentaciones = [
+  { value: 'tipo1', name: 'Tipo I' },
+  { value: 'tipo2', name: 'Tipo II' },
+  { value: 'tipo3', name: 'Tipo III' },
+  { value: 'tipo4', name: 'Tipo IV' },
+];
 
 
 

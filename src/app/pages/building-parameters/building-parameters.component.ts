@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { ubicacion, niveltransito, horarios, materialcimentacion, materiallenocompactado } 
+import { ubicacion, pmts, niveltransito, horarios, materialcimentacion, materiallenocompactado,  cimentaciones}
 from 'src/app/pages/informations';
 
 @Component({
@@ -22,6 +22,8 @@ export class BuildingParametersComponent implements OnInit {
   materialcimentacion = materialcimentacion;
   materiallenocompactado = materiallenocompactado;
   horarios = horarios;
+  pmts = pmts;
+  cimentaciones = cimentaciones;
 
   constructor(public snackBar: MatSnackBar, private fb: FormBuilder) { }
 
@@ -64,6 +66,9 @@ export class BuildingParametersComponent implements OnInit {
       horarios_de_trabajo: new FormControl(1, [Validators.required]),
       jornadas_horas: new FormControl(1, [Validators.required]),
       espesor_pavimento: new FormControl(1, [Validators.required]),
+      pmt: new FormControl('', [Validators.required]),
+      carriles_permitidos: new FormControl(1, [Validators.required]),
+      cimentacion: new FormControl('', [Validators.required]),
     });
   }
 }

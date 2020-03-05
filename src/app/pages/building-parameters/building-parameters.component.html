@@ -1,7 +1,6 @@
 <mat-tab-group>
     <mat-tab label="Parametros de la obra">
         <form [formGroup]="form">
-            <mat-card>
                 <div>
                     <mat-grid-list cols="4" [cols]="breakpoint" rowHeight="85px" (window:resize)="onResize($event)">
 
@@ -216,9 +215,46 @@
                             </div>
                         </mat-grid-tile>
 
+                        <mat-grid-tile>
+                          <div class="text-inside">
+                              <mat-form-field>
+                                  <mat-label>Pmt</mat-label>
+                                  <mat-select formControlName="pmt">
+                                      <mat-option *ngFor="let row of pmts" [value]="row.value">
+                                          {{row.name}}
+                                      </mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="form.controls['pmt'].errors?.required">{{ requiredField }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </mat-grid-tile>
+
+                      <mat-grid-tile>
+                        <div>
+                            <mat-form-field>
+                                <input autocomplete="off" required matInput type="text" numbersOnly placeholder="Carriles permitidos a intervenir" #carriles_permitidos formControlName="carriles_permitidos">
+                                <mat-error *ngIf="form.controls['carriles_permitidos'].errors?.required">{{ requiredField }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+
+                    <mat-grid-tile>
+                      <div class="text-inside">
+                          <mat-form-field>
+                              <mat-label>Cimentación</mat-label>
+                              <mat-select formControlName="cimentacion">
+                                  <mat-option *ngFor="let row of cimentaciones" [value]="row.value">
+                                      {{row.name}}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="form.controls['cimentacion'].errors?.required">{{ requiredField }}</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </mat-grid-tile>
+
                     </mat-grid-list>
                 </div>
-            </mat-card>
         </form>
     </mat-tab>
     <mat-tab label="Second">Content 2 </mat-tab>
