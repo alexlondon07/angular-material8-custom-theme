@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { JsonEditorComponent, JsonEditorOptions } from 'ang-jsoneditor';
 import { schema } from 'src/app/schema.value';
 
@@ -8,7 +8,7 @@ import { schema } from 'src/app/schema.value';
   templateUrl: './data.component.html',
   styleUrls: ['./data.component.css']
 })
-export class DataComponent {
+export class DataComponent implements OnInit {
 
   @ViewChild(JsonEditorComponent, {static: false}) editor: JsonEditorComponent;
 
@@ -23,5 +23,10 @@ export class DataComponent {
     this.options.statusBar = false;
     this.options.onChange = () => console.log(this.editor.get());
   }
+
+  ngOnInit() {
+
+  }
+
 
 }
