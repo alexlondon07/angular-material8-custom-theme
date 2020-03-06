@@ -14,21 +14,7 @@ export class DataComponent {
 
 
   options = new JsonEditorOptions();
-  data = {
-    products: [{
-      name: 'car',
-      product: [{
-        name: 'honda',
-        model: [
-          { id: 'civic', name: 'civic' },
-          { id: 'accord', name: 'accord' },
-          { id: 'crv', name: 'crv' },
-          { id: 'pilot', name: 'pilot' },
-          { id: 'odyssey', name: 'odyssey' }
-        ]
-      }]
-    }]
-  };
+  data = schema;
 
   constructor() {
     this.options.mode = 'code';

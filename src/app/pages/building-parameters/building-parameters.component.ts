@@ -3,6 +3,7 @@ import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { MatSnackBar } from '@angular/material';
 import { ubicacion, pmts, niveltransito, horarios, materialcimentacion, materiallenocompactado,  cimentaciones}
 from 'src/app/pages/informations';
+import { schema } from 'src/app/schema.value';
 
 @Component({
   selector: 'app-building-parameters',
@@ -21,7 +22,7 @@ export class BuildingParametersComponent implements OnInit {
   niveltransito =  niveltransito;
   materialcimentacion = materialcimentacion;
   materiallenocompactado = materiallenocompactado;
-  horarios = horarios;
+  horarios = schema.horarios;
   pmts = pmts;
   cimentaciones = cimentaciones;
 
