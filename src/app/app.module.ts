@@ -15,6 +15,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { BuildingParametersComponent } from './pages/building-parameters/building-parameters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlynumberDirective } from './directive/onlynumber-directive';
+import { DataComponent } from './pages/data/data.component';
+import { NgJsonEditorModule } from 'ang-jsoneditor';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { OnlynumberDirective } from './directive/onlynumber-directive';
     HomeComponent,
     SidenavComponent,
     ProfileComponent,
-    BuildingParametersComponent
+    BuildingParametersComponent,
+    DataComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -31,7 +34,8 @@ import { OnlynumberDirective } from './directive/onlynumber-directive';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    NgJsonEditorModule
   ],
   providers: [],
   bootstrap: [AppComponent],
