@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'perfil', component: ProfileComponent},
   {path: 'datos', component: DataComponent},
   {path: 'parametros-de-obra', component: BuildingParametersComponent},
+  {path: '', redirectTo: 'inicio', pathMatch: 'full'}
 ];
 
 @NgModule({

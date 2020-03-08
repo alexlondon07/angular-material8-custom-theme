@@ -17,10 +17,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlynumberDirective } from './directive/onlynumber-directive';
 import { DataComponent } from './pages/data/data.component';
 import { NgJsonEditorModule } from 'ang-jsoneditor';
+import { NumericDecimalDirective } from './directive/numeric-decimal-directive';
 
 @NgModule({
   declarations: [
     OnlynumberDirective,
+    NumericDecimalDirective,
     AppComponent,
     HomeComponent,
     SidenavComponent,

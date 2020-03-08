@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
-import { ubicacion, pmts, niveltransito, horarios, materialcimentacion, materiallenocompactado,  cimentaciones}
-from 'src/app/pages/informations';
 import { schema } from 'src/app/schema.value';
 
 @Component({
@@ -18,13 +16,13 @@ export class BuildingParametersComponent implements OnInit {
   public form: FormGroup;
   submitted = false;
   requiredField = 'Este campo es obligatorio';
-  ubicaciones = ubicacion;
-  niveltransito =  niveltransito;
-  materialcimentacion = materialcimentacion;
-  materiallenocompactado = materiallenocompactado;
+  ubicaciones = schema.ubicacion;
+  niveltransito =  schema.niveltransito;
+  materialcimentacion = schema.materialcimentacion;
+  materiallenocompactado = schema.materiallenocompactado;
   horarios = schema.horarios;
-  pmts = pmts;
-  cimentaciones = cimentaciones;
+  pmts = schema.pmts;
+  cimentaciones = schema.cimentaciones;
 
   constructor(public snackBar: MatSnackBar, private fb: FormBuilder) { }
 
@@ -49,9 +47,9 @@ export class BuildingParametersComponent implements OnInit {
     this.form = this.fb.group({
       ubicacion: new FormControl('', [Validators.required]),
       niveldetransito: new FormControl('', [Validators.required]),
-      promedioExcavacion: new FormControl('', [Validators.required]),
-      anchobrecha: new FormControl('', [Validators.required]),
-      longitud_tuberia_excabar: new FormControl('', [Validators.required]),
+      promedioExcavacion: new FormControl(1, [Validators.required]),
+      anchobrecha: new FormControl(1, [Validators.required]),
+      longitud_tuberia_excabar: new FormControl(1, [Validators.required]),
       ayudantes: new FormControl(1, [Validators.required]),
       oficiales: new FormControl(1, [Validators.required]),
       maestros: new FormControl(1, [Validators.required]),
@@ -70,6 +68,7 @@ export class BuildingParametersComponent implements OnInit {
       pmt: new FormControl('', [Validators.required]),
       carriles_permitidos: new FormControl(1, [Validators.required]),
       cimentacion: new FormControl('', [Validators.required]),
+      radio_de_tuberia: new FormControl('', [Validators.required]),
     });
   }
 }
