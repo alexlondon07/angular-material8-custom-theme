@@ -210,3 +210,58 @@ mat-grid-tile {
 div.jsoneditor-menu>button {
     background-image: url('https://jsoneditoronline.org/img/jsoneditor-icons.svg');
 }
+
+
+
+/*==================================================*/
+/*              Formularios                         */
+/*==================================================*/
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+mat-form-field {
+  width: 90%;
+}
+
+.mat-form-field{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mainDiv{
+  position: relative;
+}
+
+.text-inside {
+  position: absolute;
+  left: 5px;
+  width: 97%;
+}
+
+
+.warnign-label {
+  font-family: 'Open Sans', sans-serif;
+  width: 100%;
+  text-align: right;
+}
+
+.actions-center {
+  justify-content: center;
+}
+
+/* Css Opción seleccionada */
+.router-link-active {
+  color: var(--color-yellow, rgba(255,201,2,255));
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}

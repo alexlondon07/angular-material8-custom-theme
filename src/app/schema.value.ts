@@ -10,9 +10,9 @@ export const schema = {
       { value: 'zonaverde', name: 'Zona verde' }
     ],
     "niveltransito": [
-      { value: '1', name: 'Nivel de transito 87688768' },
-      { value: '2', name: 'Nivel de transito 2' },
-      { value: '3', name: 'Nivel de transito 3' }
+      { value: 'nivel_1', name: 'Nivel de transito 1' },
+      { value: 'nivel_2', name: 'Nivel de transito 2' },
+      { value: 'nivel_3', name: 'Nivel de transito 3' }
     ],
     "personal": [
       { value: 'ayudantes', name: 'Ayudantes', salario: 1627890, hora_nocturna:  1430, hora_dominical:  4085},
