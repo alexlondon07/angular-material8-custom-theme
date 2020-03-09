@@ -4,9 +4,9 @@ import { Directive, ElementRef, HostListener, Input } from "@angular/core";
   selector: "[numeric-decimal]"
 })
 export class NumericDecimalDirective {
-  @Input("decimals") decimals: int = 0;
+  @Input("decimals") decimals = 0;
 
-  private check(value: string, decimals: int) {
+  private check(value: string, decimals: any) {
     if (decimals <= 0) {
       return String(value).match(new RegExp(/^\d+$/));
     } else {
