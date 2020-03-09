@@ -9,7 +9,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Ubicación</mat-label>
-                                    <mat-select formControlName="ubicacion" (ngModelChange)="calcularResultados()">
+                                    <mat-select ngDefaultControl formControlName="ubicacion" (ngModelChange)="calcularResultados()">
                                         <mat-option *ngFor="let row of ubicaciones" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -21,7 +21,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Espesor pavimento(ml)" #espesor_pavimento
@@ -36,7 +36,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Nivel de tránsito</mat-label>
-                                    <mat-select (ngModelChange)="calcularResultados()" formControlName="niveldetransito">
+                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="niveldetransito">
                                         <mat-option *ngFor="let row of niveltransito" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -48,7 +48,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                          <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Prof prom de excavación(ml)" #promedioExcavacion
@@ -60,7 +60,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Ancho brecha" #anchobrecha formControlName="anchobrecha">
@@ -71,7 +71,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Longitud tuberia a excavar(ml)" #longitud_tuberia_excabar
@@ -83,7 +83,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Número de ayudantes" #ayudantes formControlName="ayudantes">
@@ -94,7 +94,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Número de oficiales" #oficiales formControlName="oficiales">
@@ -105,7 +105,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Número de maestros" #maestros formControlName="maestros">
@@ -116,7 +116,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Número de SST" #sst formControlName="sst">
@@ -127,7 +127,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Número de Ingenieros" #ingenieros formControlName="ingenieros">
@@ -141,7 +141,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Material de cimentación</mat-label>
-                                    <mat-select formControlName="materialcimentacion"
+                                    <mat-select ngDefaultControl formControlName="materialcimentacion"
                                       (ngModelChange)="materialcimentacionChange()">
                                         <mat-option *ngFor="let row of materialcimentacion" [value]="row.value">
                                             {{row.name}}
@@ -154,7 +154,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         [placeholder]="placeholderEspesor" #material_cimentacion_espesor
@@ -166,7 +166,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile *ngIf="form.controls['materialcimentacion'].value === 'arenilla_triturado'">
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Espesor Triturado" #material_cimentacion_espesor_2
@@ -177,7 +177,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                          <div>
+                          <div class="text-inside">
                               <mat-form-field>
                                   <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                       placeholder="Radio de tubería" #radio_de_tuberia
@@ -192,7 +192,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Material de lleno compactado</mat-label>
-                                    <mat-select (ngModelChange)="calcularResultados()" formControlName="material_lleno_compactado">
+                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="material_lleno_compactado">
                                         <mat-option *ngFor="let row of materiallenocompactado" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -204,7 +204,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Espesor Mat de lleno compactado" #material_lleno_espesor
@@ -216,7 +216,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Diametro de tuberia(pul)" #diametro_tuberia
@@ -231,7 +231,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Tipo de rasante provisional</mat-label>
-                                    <mat-select  (ngModelChange)="calcularResultados()" formControlName="tipo_rasante_provisional">
+                                    <mat-select  ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="tipo_rasante_provisional">
                                         <mat-option *ngFor="let row of tipoderasante" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -246,7 +246,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Horarios de trabajo</mat-label>
-                                    <mat-select (ngModelChange)="calcularResultados()" formControlName="horarios_de_trabajo">
+                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="horarios_de_trabajo">
                                         <mat-option *ngFor="let row of horarios" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -258,7 +258,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Jornadas (Horas)" #jornadas_horas formControlName="jornadas_horas">
@@ -272,7 +272,7 @@
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Pmt</mat-label>
-                                    <mat-select (ngModelChange)="calcularResultados()" formControlName="pmt">
+                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="pmt">
                                         <mat-option *ngFor="let row of pmts" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -284,7 +284,7 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div>
+                            <div class="text-inside">
                                 <mat-form-field>
                                     <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
                                         placeholder="Carriles permitidos a intervenir" #carriles_permitidos
@@ -295,12 +295,11 @@
                             </div>
                         </mat-grid-tile>
 
-
                         <mat-grid-tile>
                             <div class="text-inside">
                                 <mat-form-field>
                                     <mat-label>Cimentación</mat-label>
-                                    <mat-select (ngModelChange)="calcularResultados()" formControlName="cimentacion">
+                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="cimentacion">
                                         <mat-option *ngFor="let row of cimentaciones" [value]="row.value">
                                             {{row.name}}
                                         </mat-option>
@@ -310,20 +309,6 @@
                                 </mat-form-field>
                             </div>
                         </mat-grid-tile>
-<!--
-                        <mat-grid-tile>
-                            <div>
-                                <button mat-flat-button class=" mat-fab mat-button-base mat-primary">
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </div>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-                            <br>
-
-                        </mat-grid-tile> -->
                     </mat-grid-list>
                 </div>
             </form>

@@ -72,7 +72,7 @@ export class BuildingParametersComponent implements OnInit {
       material_lleno_espesor: new FormControl(1, [Validators.required]),
       diametro_tuberia: new FormControl(1, [Validators.required]),
       tipo_rasante_provisional: new FormControl('fresador', [Validators.required]),
-      horarios_de_trabajo: new FormControl(1, [Validators.required]),
+      horarios_de_trabajo: new FormControl('diurnos', [Validators.required]),
       jornadas_horas: new FormControl(1, [Validators.required]),
       espesor_pavimento: new FormControl(1, [Validators.required]),
       pmt: new FormControl('cierres_parciales', [Validators.required]),
