@@ -16,8 +16,9 @@ export class BuildingParametersComponent implements OnInit {
   public form: FormGroup;
   submitted = false;
   requiredField = 'Este campo es obligatorio';
+  placeholderEspesor = 'Espesor Arenilla';
   ubicaciones = schema.ubicacion;
-  niveltransito =  schema.niveltransito;
+  niveltransito = schema.niveltransito;
   materialcimentacion = schema.materialcimentacion;
   materiallenocompactado = schema.materiallenocompactado;
   horarios = schema.horarios;
@@ -55,9 +56,9 @@ export class BuildingParametersComponent implements OnInit {
       maestros: new FormControl(1, [Validators.required]),
       sst: new FormControl(1, [Validators.required]),
       ingenieros: new FormControl(1, [Validators.required]),
-      materialcimentacion : new FormControl(1, [Validators.required]),
-      material_cimentacion_espesor : new FormControl(1, [Validators.required]),
-      material_cimentacion_espesor_2 : new FormControl(),
+      materialcimentacion: new FormControl('arenilla', [Validators.required]),
+      material_cimentacion_espesor: new FormControl(1, [Validators.required]),
+      material_cimentacion_espesor_2: new FormControl(1),
       material_lleno_compactado: new FormControl('', [Validators.required]),
       material_lleno_espesor: new FormControl(1, [Validators.required]),
       diametro_tuberia: new FormControl(1, [Validators.required]),
@@ -70,5 +71,20 @@ export class BuildingParametersComponent implements OnInit {
       cimentacion: new FormControl('', [Validators.required]),
       radio_de_tuberia: new FormControl('', [Validators.required]),
     });
+  }
+
+  /**
+   * Método para validar campo de cimentación
+   */
+  materialcimentacionChange() {
+    if (this.form.value.materialcimentacion === 'triturado') {
+      this.placeholderEspesor = 'Espesor Triturado';
+    }
+    if (this.form.value.materialcimentacion === 'arenilla_triturado' || this.form.value.materialcimentacion === 'arenilla') {
+      this.placeholderEspesor = 'Espesor Arenilla';
+    }
+    if (this.form.value.materialcimentacion === 'arenilla_triturado') {
+      this.form.get('material_cimentacion_espesor_2').setValidators([Validators.required]);
+    }
   }
 }
