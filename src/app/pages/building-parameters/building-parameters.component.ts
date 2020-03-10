@@ -123,7 +123,7 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados['instalacion_tuberia'] = this.form.value.longitud_tuberia_excabar;
 
     // LLeno compactado
-    this.resultados['lleno_compactado'] = ( this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_lleno_espesor * 1.3);
+    this.resultados['lleno_compactado'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_lleno_espesor * 1.3;
 
     // Rasante Temporal
     this.resultados['rasante_temporal'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
