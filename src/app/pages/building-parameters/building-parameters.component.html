@@ -296,19 +296,41 @@
                         </mat-grid-tile>
 
                         <mat-grid-tile>
-                            <div class="text-inside">
-                                <mat-form-field>
-                                    <mat-label>Cimentación</mat-label>
-                                    <mat-select ngDefaultControl (ngModelChange)="calcularResultados()" formControlName="cimentacion">
-                                        <mat-option *ngFor="let row of cimentaciones" [value]="row.value">
-                                            {{row.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                    <mat-error *ngIf="form.controls['cimentacion'].errors?.required">{{ requiredField }}
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </mat-grid-tile>
+                          <div class="text-inside">
+                              <mat-form-field>
+                                  <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
+                                      placeholder="Altura de cimentación (ml)" #altura_de_cimentacion
+                                      formControlName="altura_de_cimentacion">
+                                  <mat-error *ngIf="form.controls['altura_de_cimentacion'].errors?.required">
+                                      {{ requiredField }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </mat-grid-tile>
+
+                      <mat-grid-tile>
+                          <div class="text-inside">
+                              <mat-form-field>
+                                  <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
+                                      placeholder="Altura del suelo (ml)" #altura_de_suelo
+                                      formControlName="altura_de_suelo">
+                                  <mat-error *ngIf="form.controls['altura_de_suelo'].errors?.required">
+                                      {{ requiredField }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </mat-grid-tile>
+
+                      <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2"
+                                    placeholder="Manhole a contruir (und)" #manhole_a_contruir
+                                    formControlName="manhole_a_contruir">
+                                <mat-error *ngIf="form.controls['manhole_a_contruir'].errors?.required">
+                                    {{ requiredField }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
                     </mat-grid-list>
                 </div>
             </form>
@@ -344,24 +366,6 @@
                     </mat-grid-tile>
 
                     <mat-grid-tile>
-                        <div class="text-inside">
-                            <mat-form-field>
-                                <mat-label>Cimentación (m3)</mat-label>
-                                <input disabled matInput type="text" [value]="resultados['cimentacion_m3'] | number:'1.2-2'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
-                        <div class="text-inside">
-                            <mat-form-field>
-                                <mat-label>Corte de pavimento (ml)</mat-label>
-                                <input (change)="calcularResultados()" disabled matInput type="text" value="Falta hacerlo">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
-
-                    <mat-grid-tile>
                       <div class="text-inside">
                           <mat-form-field>
                               <mat-label>Instalación de tubería</mat-label>
@@ -382,99 +386,14 @@
                 <mat-grid-tile>
                   <div class="text-inside">
                       <mat-form-field>
-                          <mat-label>Botada de material (m3)</mat-label>
-                          <input (change)="calcularResultados()" disabled matInput type="text" [value]="resultados['botada_material'] | number:'1.2-2'">
-                      </mat-form-field>
-                  </div>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                  <div class="text-inside">
-                      <mat-form-field>
                           <mat-label>Rasante temporal (m3)</mat-label>
                           <input (change)="calcularResultados()" disabled matInput type="text" [value]="resultados['rasante_temporal'] | number:'1.2-2'">
                       </mat-form-field>
                   </div>
                 </mat-grid-tile>
 
-
-                <mat-grid-tile>
-                  <div class="text-inside">
-                      <mat-form-field>
-                          <mat-label>Manthole</mat-label>
-                          <input (change)="calcularResultados()" disabled matInput type="text" [value]="resultados['botada_material']">
-                      </mat-form-field>
-                  </div>
-                </mat-grid-tile>
-
-
-                <mat-grid-tile>
-                  <div class="text-inside">
-                      <mat-form-field>
-                          <mat-label>Cantidad de volquetas</mat-label>
-                          <input (change)="calcularResultados()" disabled matInput type="text" [value]="resultados['cantidad_volquetas']">
-                      </mat-form-field>
-                  </div>
-                </mat-grid-tile>
-
                 </mat-grid-list>
-                <!--           <mat-grid-list cols="2" rowHeight="2:1">
-                <mat-list>
-                  <mat-list-item>Corte de pavimento (ml): XXX</mat-list-item>
-                  <mat-list-item>Demolición de pavimento (m3): XXX</mat-list-item>
-                  <mat-list-item>Excavación mecánica: XXX</mat-list-item>
-                  <mat-list-item>Cimentación (m3): XXX</mat-list-item>
-                  <mat-list-item>Instalación de tubería: XXX</mat-list-item>
-                  <mat-list-item>Lleno compactado(m3): XXX</mat-list-item>
-                  <mat-list-item>Botada de material(m3): XXX</mat-list-item>
-                  <mat-list-item>Rosante temporal: XXX</mat-list-item>
-                  <mat-list-item>Manhole(und): XXX</mat-list-item>
-                  <mat-list-item>Cantidad de volquetas: XXX</mat-list-item>
-                </mat-list>
-              </mat-grid-tile>
-              <mat-grid-tile>Llenos compactados
-                <mat-list>
-                  <mat-list-item>Corte de pavimento (ml): XXX</mat-list-item>
-                  <mat-list-item>Demolición de pavimento (m3): XXX</mat-list-item>
-                  <mat-list-item>Excavación mecánica: XXX</mat-list-item>
-                  <mat-list-item>Cimentación (m3): XXX</mat-list-item>
-                  <mat-list-item>Instalación de tubería: XXX</mat-list-item>
-                  <mat-list-item>Lleno compactado(m3): XXX</mat-list-item>
-                  <mat-list-item>Botada de material(m3): XXX</mat-list-item>
-                  <mat-list-item>Rosante temporal: XXX</mat-list-item>
-                  <mat-list-item>Manhole(und): XXX</mat-list-item>
-                  <mat-list-item>Cantidad de volquetas: XXX</mat-list-item>
-                </mat-list>
-              </mat-grid-tile>
-              <mat-grid-tile>Botada de material
-                <mat-list>
-                  <mat-list-item>Corte de pavimento (ml): XXX</mat-list-item>
-                  <mat-list-item>Demolición de pavimento (m3): XXX</mat-list-item>
-                  <mat-list-item>Excavación mecánica: XXX</mat-list-item>
-                  <mat-list-item>Cimentación (m3): XXX</mat-list-item>
-                  <mat-list-item>Instalación de tubería: XXX</mat-list-item>
-                  <mat-list-item>Lleno compactado(m3): XXX</mat-list-item>
-                  <mat-list-item>Botada de material(m3): XXX</mat-list-item>
-                  <mat-list-item>Rosante temporal: XXX</mat-list-item>
-                  <mat-list-item>Manhole(und): XXX</mat-list-item>
-                  <mat-list-item>Cantidad de volquetas: XXX</mat-list-item>
-                </mat-list>
-              </mat-grid-tile>
-              <mat-grid-tile>Rasaste de vía
-                <mat-list>
-                  <mat-list-item>Corte de pavimento (ml): XXX</mat-list-item>
-                  <mat-list-item>Demolición de pavimento (m3): XXX</mat-list-item>
-                  <mat-list-item>Excavación mecánica: XXX</mat-list-item>
-                  <mat-list-item>Cimentación (m3): XXX</mat-list-item>
-                  <mat-list-item>Instalación de tubería: XXX</mat-list-item>
-                  <mat-list-item>Lleno compactado(m3): XXX</mat-list-item>
-                  <mat-list-item>Botada de material(m3): XXX</mat-list-item>
-                  <mat-list-item>Rosante temporal: XXX</mat-list-item>
-                  <mat-list-item>Manhole(und): XXX</mat-list-item>
-                  <mat-list-item>Cantidad de volquetas: XXX</mat-list-item>
-                </mat-list>
-              </mat-grid-tile>
-            </mat-grid-list> -->
+
             </div>
         </mat-tab>
         <mat-tab label="Equipo de trabajo "></mat-tab>

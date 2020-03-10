@@ -71,7 +71,7 @@ export class BuildingParametersComponent implements OnInit {
       material_lleno_compactado: new FormControl('subbase', [Validators.required]),
       material_lleno_espesor: new FormControl(1, [Validators.required]),
       diametro_tuberia: new FormControl(1, [Validators.required]),
-      tipo_rasante_provisional: new FormControl('fresador', [Validators.required]),
+      tipo_rasante_provisional: new FormControl('fresado', [Validators.required]),
       horarios_de_trabajo: new FormControl('diurnos', [Validators.required]),
       jornadas_horas: new FormControl(1, [Validators.required]),
       espesor_pavimento: new FormControl(1, [Validators.required]),
@@ -79,6 +79,9 @@ export class BuildingParametersComponent implements OnInit {
       carriles_permitidos: new FormControl(1, [Validators.required]),
       cimentacion: new FormControl('tipo1', [Validators.required]),
       radio_de_tuberia: new FormControl(1, [Validators.required]),
+      altura_de_cimentacion: new FormControl(1, [Validators.required]),
+      altura_de_suelo: new FormControl(1, [Validators.required]),
+      manhole_a_contruir: new FormControl(1, [Validators.required]),
     });
   }
 
@@ -115,8 +118,6 @@ export class BuildingParametersComponent implements OnInit {
     // Excavación mecánica
     this.resultados['excavacion_mecanica'] = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion );
 
-    // Cimentación m3
-    this.resultados['cimentacion_m3'] = 0;
 
     // Instalación de tubería
     this.resultados['instalacion_tuberia'] = this.form.value.longitud_tuberia_excabar;
@@ -124,17 +125,8 @@ export class BuildingParametersComponent implements OnInit {
     // LLeno compactado
     this.resultados['lleno_compactado'] = ( this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_lleno_espesor * 1.3);
 
-    // Botada de material
-    this.resultados['botada_material'] = this.falta;
-     // this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion * 1.3
-
     // Rasante Temporal
     this.resultados['rasante_temporal'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
-
-    // Cantidad de volquetas
-    this.resultados['cantidad_volquetas'] = this.falta;
-
-
   }
 
 }

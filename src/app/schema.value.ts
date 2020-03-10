@@ -15,11 +15,11 @@ export const schema = {
       { value: 'nivel_3', name: 'Nivel de transito 3' }
     ],
     "personal": [
-      { value: 'ayudantes', name: 'Ayudantes', salario: 1627890, hora_nocturna:  1430, hora_dominical:  4085},
-      { value: 'oficiales', name: 'Oficiales', salario: 2324000, hora_nocturna:  2041 , hora_dominical:  5833},
-      { value: 'maestros', name: 'Maestros' , salario: 2988000, hora_nocturna:  2625, hora_dominical:  7500},
-      { value: 'sst', name: 'SST' , salario: 2656000, hora_nocturna:  2333, hora_dominical:  6665},
-      { value: 'ingenieros', name: 'Ingenieros' , salario: 4150000, hora_nocturna:  2625, hora_dominical:  10414}
+      { value: 'ayudantes', name: 'Ayudantes', salario: 1627890, hora: 6783 },
+      { value: 'oficiales', name: 'Oficiales', salario: 2324000, hora: 9683 },
+      { value: 'maestros', name: 'Maestros' , salario: 2988000, hora: 12450 },
+      { value: 'sst', name: 'SST' , salario: 2656000, hora: 11067 },
+      { value: 'ingenieros', name: 'Ingenieros' , salario: 4150000 },
     ],
     "materialcimentacion": [
       { value: 'arenilla', name: 'Arenilla' },
@@ -31,7 +31,7 @@ export const schema = {
       { value: 'basegranular', name: 'Base granular' },
     ],
     "tipoderasante": [
-      { value: 'fresador', name: 'Fresador' },
+      { value: 'fresado', name: 'Fresado' },
       { value: 'suelocemento', name: 'Suelo cemento' },
     ],
     "materiales": [
@@ -52,18 +52,18 @@ export const schema = {
       { value: 'tipo3', name: 'Tipo III' },
       { value: 'tipo4', name: 'Tipo IV' },
     ],
-    "maquinas": [
-      { value: 'cortadora_de_piso', name: 'Cortadora de piso', hora: 0, dia: 0, mes: 0},
-      { value: 'martillo_neumatico', name: 'Martillo neumatico', hora: 0, dia: 0, mes: 0 },
-      { value: 'mini_cargador_con_martillo', name: 'Mini Cargador con martillo', hora: 0, dia: 0, mes: 0 },
-      { value: 'retro_excavadora', name: 'Retro Excavadora' , hora: 0, dia: 0, mes: 0},
-      { value: 'mini_retro', name: 'Mini Excavadora', hora: 0, dia: 0, mes: 0 },
-      { value: 'volqueta', name: 'Volqueta', hora: 0, dia: 0, mes: 0 },
-      { value: 'canguro', name: 'Canguro', hora: 0, dia: 0, mes: 0 },
-      { value: 'vibrador_para_concreto', name: 'Vibrador para concreto', hora: 0, dia: 0, mes: 0 },
-      { value: 'formaleta_manhole', name: 'Formaleta Manhole', hora: 0, dia: 0, mes: 0 },
-      { value: 'disco_diamante_para_cortadora', name: 'Disco diamente para cortadora', hora: 0, dia: 0, mes: 0 },
-      { value: 'rodillo_compactador', name: 'Rodillo compactador', hora: 0, dia: 0, mes: 0 },
+   "maquinas": [
+      { value: 'cortadora_de_piso', name: 'Cortadora de piso', hora: 6694, dia: 0, mes: 0},
+      { value: 'martillo_neumatico', name: 'Martillo neumatico', hora: 7500, dia: 0, mes: 0 },
+      { value: 'mini_cargador_con_martillo', name: 'Mini Cargador con martillo', hora: 80000, dia: 0, mes: 0 },
+      { value: 'retro_excavadora_120', name: 'Retro Excavadora 120' , hora: 120000, dia: 0, mes: 0},
+      { value: 'retro_excavadora_320', name: 'Retro Excavadora 320' , hora: 140000, dia: 0, mes: 0},
+      { value: 'mini_retro', name: 'Mini Excavadora', hora: 85000, dia: 0, mes: 0 },
+      { value: 'volqueta', name: 'Volqueta', hora: 234000, dia: 0, mes: 0 },
+      { value: 'canguro', name: 'Canguro', hora: 4016, dia: 0, mes: 0 },
+      { value: 'vibrador_para_concreto', name: 'Vibrador para concreto', hora: 4250, dia: 0, mes: 0 },
+      { value: 'formaleta_cilindro_mh', name: 'Formaleta Cilidro MH', hora: 1190, dia: 0, mes: 0 },
+      { value: 'rodillo_compactador', name: 'Rodillo compactador', hora: 17850, dia: 0, mes: 0 },
     ],
     "redimientos": [
       { value: 'excavacion_mecanica', name: 'Excavasión mecánica', rendimiento: 5.35, unidadmedida: 'm3'},
