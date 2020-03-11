@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { schema } from 'src/app/schema.value';
-import { cimentaciones } from '../informations';
 
 @Component({
   selector: 'app-building-parameters',
@@ -84,7 +83,7 @@ export class BuildingParametersComponent implements OnInit {
       cimentacion: new FormControl('tipo1', [Validators.required]),
       radio_de_tuberia: new FormControl(0.34, [Validators.required]),
       cama_de_cimentacion: new FormControl(0.15, [Validators.required]),
-      altura_de_suelo: new FormControl(1, [Validators.required]),
+      espesor_suelo_cemento: new FormControl(0.10, [Validators.required]),
       manhole_a_contruir: new FormControl(1, [Validators.required]),
     });
   }
@@ -111,7 +110,7 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados['instalacion_tuberia'] = this.form.value.longitud_tuberia_excabar;
 
     // LLeno compactado
-    this.resultados['lleno_compactado'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_lleno_espesor * 1.3;
+    this.resultados['lleno_compactado'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_lleno_espesor;
 
     // Rasante Temporal
     this.resultados['rasante_temporal'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
@@ -128,6 +127,22 @@ export class BuildingParametersComponent implements OnInit {
       let cimentacion_triturado = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_cimentacion_espesor_2) - ((pi * this.form.value.longitud_tuberia_excabar * Math.pow(this.form.value.radio_de_tuberia, 2)/2) );
       this.resultados['cimentacion_triturado'] = cimentacion_triturado;
     }
+
+    // Botada de material
+    let botada_material = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion * 1.3 ) + (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.espesor_pavimento * 1.5 );
+    this.resultados['botada_material'] = botada_material;
+
+    // Rasante temporal
+    let rasante_temporal = ( this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha  * this.form.value.espesor_suelo_cemento  )
+    this.resultados['rasante_temporal'] = rasante_temporal;
+
+    // Manhole
+    this.resultados['manhole'] = this.form.value.manhole_a_contruir;
+
+    // Cantidad de volquetas
+    let botada = (this.resultados['botada_material'] / 15);
+    this.resultados['cantidad_volquetas'] = botada.toFixed();
+    
   }
 
     /**

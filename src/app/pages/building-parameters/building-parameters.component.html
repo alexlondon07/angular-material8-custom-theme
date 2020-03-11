@@ -282,8 +282,8 @@
                         <mat-grid-tile>
                             <div class="text-inside">
                                 <mat-form-field>
-                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Altura del suelo (ml)" #altura_de_suelo formControlName="altura_de_suelo">
-                                    <mat-error *ngIf="form.controls['altura_de_suelo'].errors?.required">
+                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Espesor suelo-cemento (ml)" #espesor_suelo_cemento formControlName="espesor_suelo_cemento">
+                                    <mat-error *ngIf="form.controls['espesor_suelo_cemento'].errors?.required">
                                         {{ requiredField }}</mat-error>
                                 </mat-form-field>
                             </div>
@@ -384,6 +384,43 @@
                             <mat-form-field>
                                 <mat-label>Cimentación triturado (m3)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['cimentacion_triturado'] | number:'1.2-2'">
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile *ngIf="form.controls['materialcimentacion'].value === 'arenilla_triturado'">
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <mat-label>Cimentación triturado (m3)</mat-label>
+                                <input disabled matInput type="text" [value]="resultados['cimentacion_triturado'] | number:'1.2-2'">
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <mat-label>Botada de material</mat-label>
+                                <input disabled matInput type="text" [value]="resultados['botada_material'] | number:'1.2-2'">
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <mat-label>Manhole</mat-label>
+                                <input disabled matInput type="text" [value]="resultados['manhole'] | number:'1.2-2'">
+                            </mat-form-field>
+                        </div>
+                    </mat-grid-tile>
+
+
+                    <mat-grid-tile>
+                        <div class="text-inside">
+                            <mat-form-field>
+                                <mat-label>Cantidad de volquetas</mat-label>
+                                <input disabled matInput type="text" [value]="resultados['cantidad_volquetas']">
                             </mat-form-field>
                         </div>
                     </mat-grid-tile>
