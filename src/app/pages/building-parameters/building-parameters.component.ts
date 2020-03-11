@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { schema } from 'src/app/schema.value';
+import { cimentaciones } from '../informations';
 
 @Component({
   selector: 'app-building-parameters',
@@ -18,6 +19,9 @@ export class BuildingParametersComponent implements OnInit {
   requiredField = 'Este campo es obligatorio';
   placeholderEspesor = 'Espesor Arenilla';
   falta = 0;
+  triturado = 'triturado';
+  arenilla = 'arenilla';
+  arenilla_triturado = 'arenilla_triturado';
 
   // Opciones de los selects
   ubicaciones = schema.ubicacion;
@@ -40,7 +44,7 @@ export class BuildingParametersComponent implements OnInit {
 
     this.buildFormBuilder();
 
-    this.calcularResultados();
+    this.materialcimentacionChange();
   }
 
   /**
@@ -57,56 +61,41 @@ export class BuildingParametersComponent implements OnInit {
     this.form = this.fb.group({
       ubicacion: new FormControl('pavimento_flexible', [Validators.required]),
       niveldetransito: new FormControl('nivel_1', [Validators.required]),
-      promedioExcavacion: new FormControl(1, [Validators.required]),
+      promedioExcavacion: new FormControl(2, [Validators.required]),
       anchobrecha: new FormControl(1, [Validators.required]),
-      longitud_tuberia_excabar: new FormControl(1, [Validators.required]),
+      longitud_tuberia_excabar: new FormControl(100, [Validators.required]),
       ayudantes: new FormControl(1, [Validators.required]),
       oficiales: new FormControl(1, [Validators.required]),
       maestros: new FormControl(1, [Validators.required]),
       sst: new FormControl(1, [Validators.required]),
       ingenieros: new FormControl(1, [Validators.required]),
       materialcimentacion: new FormControl('arenilla', [Validators.required]),
-      material_cimentacion_espesor: new FormControl(1, [Validators.required]),
+      material_cimentacion_espesor: new FormControl('', [Validators.required]),
       material_cimentacion_espesor_2: new FormControl(1),
       material_lleno_compactado: new FormControl('subbase', [Validators.required]),
       material_lleno_espesor: new FormControl(1, [Validators.required]),
-      diametro_tuberia: new FormControl(1, [Validators.required]),
+      diametro_tuberia: new FormControl(27, [Validators.required]),
       tipo_rasante_provisional: new FormControl('fresado', [Validators.required]),
       horarios_de_trabajo: new FormControl('diurnos', [Validators.required]),
       jornadas_horas: new FormControl(1, [Validators.required]),
-      espesor_pavimento: new FormControl(1, [Validators.required]),
+      espesor_pavimento: new FormControl(0.50, [Validators.required]),
       pmt: new FormControl('cierres_parciales', [Validators.required]),
       carriles_permitidos: new FormControl(1, [Validators.required]),
       cimentacion: new FormControl('tipo1', [Validators.required]),
-      radio_de_tuberia: new FormControl(1, [Validators.required]),
-      altura_de_cimentacion: new FormControl(1, [Validators.required]),
+      radio_de_tuberia: new FormControl(0.34, [Validators.required]),
+      cama_de_cimentacion: new FormControl(0.15, [Validators.required]),
       altura_de_suelo: new FormControl(1, [Validators.required]),
       manhole_a_contruir: new FormControl(1, [Validators.required]),
     });
   }
 
   /**
-   * Método para validar campo de cimentación
-   */
-  materialcimentacionChange() {
-    if (this.form.value.materialcimentacion === 'triturado') {
-      this.placeholderEspesor = 'Espesor Triturado';
-    }
-    if (this.form.value.materialcimentacion === 'arenilla_triturado' || this.form.value.materialcimentacion === 'arenilla') {
-      this.placeholderEspesor = 'Espesor Arenilla';
-    }
-    if (this.form.value.materialcimentacion === 'arenilla_triturado') {
-      this.form.get('material_cimentacion_espesor_2').setValidators([Validators.required]);
-    }
-
-    this.calcularResultados();
-  }
-
-  /**
    * Metodo para calcular los resultados
    */
   calcularResultados() {
-    console.log('Calcular Resultados');
+
+    this.calcularEspesorArenillaEspesorTriturado();
+
     this.resultados = {};
 
     // Corte de pavimento
@@ -118,7 +107,6 @@ export class BuildingParametersComponent implements OnInit {
     // Excavación mecánica
     this.resultados['excavacion_mecanica'] = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion );
 
-
     // Instalación de tubería
     this.resultados['instalacion_tuberia'] = this.form.value.longitud_tuberia_excabar;
 
@@ -127,6 +115,69 @@ export class BuildingParametersComponent implements OnInit {
 
     // Rasante Temporal
     this.resultados['rasante_temporal'] = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
+
+    // Cimentación m3
+    let pi = 3.1415926535;
+    if(this.form.value.materialcimentacion == this.arenilla || this.form.value.materialcimentacion == this.triturado){
+      let cal1 = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_cimentacion_espesor) - (pi * this.form.value.longitud_tuberia_excabar * Math.pow(this.form.value.radio_de_tuberia, 2) ) ;
+      this.resultados['cimentacion'] = cal1;
+    }else{
+      let cimentacion_arenilla = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_cimentacion_espesor) - ((pi * this.form.value.longitud_tuberia_excabar * Math.pow(this.form.value.radio_de_tuberia, 2)/2) );
+      this.resultados['cimentacion_arenilla'] = cimentacion_arenilla;
+
+      let cimentacion_triturado = (this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.material_cimentacion_espesor_2) - ((pi * this.form.value.longitud_tuberia_excabar * Math.pow(this.form.value.radio_de_tuberia, 2)/2) );
+      this.resultados['cimentacion_triturado'] = cimentacion_triturado;
+    }
+  }
+
+    /**
+   * Calcular el espesor de arenilla y espesor triturado
+   */
+  calcularEspesorArenillaEspesorTriturado(){
+
+    let opcion = this.form.value.materialcimentacion;
+    if(opcion === 'arenilla_triturado'){
+
+      // Calcular espesor arenilla
+      let cal0 =  parseFloat(this.form.value.radio_de_tuberia) + 0.25;
+      let cal1 = cal0.toFixed(2);
+      this.form.get("material_cimentacion_espesor").setValue(cal1);
+
+      // Calcular espesor triturado
+      let cal2 = parseFloat(this.form.value.cama_de_cimentacion) + parseFloat(this.form.value.radio_de_tuberia);
+      this.form.get("material_cimentacion_espesor_2").setValue(cal2);
+
+    }else{
+      let cal0 = 2 * this.form.value.radio_de_tuberia;
+      let cal1 = cal0  + 0.25;
+      let cal = parseFloat(this.form.value.cama_de_cimentacion)  + cal1;
+      this.form.get("material_cimentacion_espesor").setValue(cal);
+    }
+  }
+
+  /**
+   * Método para validar campo de cimentación y calcular el espesor arenilla y triturado
+   */
+  materialcimentacionChange() {
+    if (this.form.value.materialcimentacion === this.triturado) {
+      this.placeholderEspesor = 'Espesor Triturado';
+
+      this.calcularEspesorArenillaEspesorTriturado();
+    }
+    if (this.form.value.materialcimentacion === this.arenilla_triturado || this.form.value.materialcimentacion === this.arenilla) {
+      this.placeholderEspesor = 'Espesor Arenilla';
+
+      if( this.form.value.materialcimentacion === this.arenilla ){
+        this.calcularEspesorArenillaEspesorTriturado();
+      }
+    }
+    if (this.form.value.materialcimentacion === this.arenilla_triturado) {
+      this.form.get('material_cimentacion_espesor_2').setValidators([Validators.required]); // Espesor triturado
+
+      this.calcularEspesorArenillaEspesorTriturado();
+    }
+
+    this.calcularResultados();
   }
 
 }
