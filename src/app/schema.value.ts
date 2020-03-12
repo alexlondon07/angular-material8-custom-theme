@@ -44,7 +44,8 @@ export const schema = {
     ],
     "pmts": [
       { value: 'cierres_parciales', name: 'Cierres Parciales' },
-      { value: 'cierres_totales', name: 'Cierres Totales' }
+      { value: 'cierres_totales', name: 'Cierres Totales' },
+      { value: 'jornal', name: 'Jornal' }
     ],
     "cimentaciones": [
       { value: 'tipo1', name: 'Tipo I' },
