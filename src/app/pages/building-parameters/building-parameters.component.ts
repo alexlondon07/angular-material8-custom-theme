@@ -355,7 +355,7 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Instalación de tubería
-    if ( this.form.value.promedioExcavacion <= 1.50) {
+    if ( this.form.value.promedioExcavacion < 1.50) {
       this.resultados["instalacion_de_tuberia"] = "Compactar con dos canguros";
     }
     if ( this.form.value.promedioExcavacion > 1.50) {
