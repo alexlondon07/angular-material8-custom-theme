@@ -25,8 +25,8 @@ export class BuildingParametersComponent implements OnInit {
   triturado = "triturado";
   arenilla = "arenilla";
   arenilla_triturado = "arenilla_triturado";
-  retro_excavadora_120_320= "Retro excavadora de 120 o 320";
-  retro_excavadora_312_320 = "Retro excavadora de 312 o 320";
+  retro_excavadora_120_320= "Retro excavadora de 120 o excavadora 320";
+  retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
 
   // Opciones de los selects
   ubicaciones = schema.ubicacion;
@@ -271,6 +271,8 @@ export class BuildingParametersComponent implements OnInit {
 
     this.resultados["demolicion"] = '';
 
+    console.log('Hola');
+
     // Pavimento Flexible
     if (this.form.value.ubicacion === "pavimento_flexible") {
       if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
@@ -279,7 +281,7 @@ export class BuildingParametersComponent implements OnInit {
       if (this.form.value.espesor_pavimento >= 0.20 && this.form.value.espesor_pavimento <= 0.30) {
         this.resultados["demolicion"] = "Mini cargador o Mini retro";
       }
-      if (this.form.value.espesor_pavimento >= 0.30 && this.form.value.espesor_pavimento <= 0.50) {
+      if (this.form.value.espesor_pavimento >= 0.30) {
         this.resultados["demolicion"] = this.retro_excavadora_120_320;
       }
     }
@@ -301,28 +303,28 @@ export class BuildingParametersComponent implements OnInit {
     if (this.form.value.pmt === 'cierres_parciales') {
 
       if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
-        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
+        this.resultados["pmt_con_excavacion"] = 'Mini reto o mini cargador';
       }
 
       if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
 
-      if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = "Mini cargador";
       }
 
-      if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia >= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
-    // Cierre parciales
+    // Cierre totales
     if (this.form.value.pmt === 'cierres_totales') {
       if (this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = "Mini cargador";
       }
-      if (this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
