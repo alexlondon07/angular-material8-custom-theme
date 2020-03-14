@@ -271,8 +271,6 @@ export class BuildingParametersComponent implements OnInit {
 
     this.resultados["demolicion"] = '';
 
-    console.log('Hola');
-
     // Pavimento Flexible
     if (this.form.value.ubicacion === "pavimento_flexible") {
       if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
@@ -306,7 +304,7 @@ export class BuildingParametersComponent implements OnInit {
         this.resultados["pmt_con_excavacion"] = 'Mini reto o mini cargador';
       }
 
-      if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia <= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
 
@@ -314,14 +312,14 @@ export class BuildingParametersComponent implements OnInit {
         this.resultados["pmt_con_excavacion"] = "Mini cargador";
       }
 
-      if (this.form.value.carriles_permitidos >= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
     // Cierre totales
     if (this.form.value.pmt === 'cierres_totales') {
-      if (this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.diametro_tuberia <= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = "Mini cargador";
       }
       if (this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
@@ -334,15 +332,12 @@ export class BuildingParametersComponent implements OnInit {
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
-    // Jornal
-    if (this.form.value.pmt === 'jornal') {
-      if (this.form.value.jornadas_horas >= 0 && this.form.value.jornadas_horas < 5) {
-        this.resultados["pmt_con_excavacion"] = `Realizar solo actividades unicas como (corte de pavimentos, demolicion de pavimento, instalacion de tuberia o manhole) solo una actividad por jornal.`;
-      }
-
-      if (this.form.value.jornadas_horas >= 5 && this.form.value.jornadas_horas <= 8) {
-        this.resultados["pmt_con_excavacion"] = `Realizar solo actividades combinadas como (corte de pavimento con demolicion de pavimento, demolicion de pavimento con instalacion de tuberia, demolicion de pavimento con construccion de manholes) solo dos actividades por jornal`;
-      }
+    // Jornadas
+    if (this.form.value.jornadas_horas >= 0 && this.form.value.jornadas_horas < 5) {
+      this.resultados["actividad_por_jornal"] = `Realizar solo actividades unicas como (corte de pavimentos, demolicion de pavimento, instalacion de tuberia o manhole) solo una actividad por jornal.`;
+    }
+    if (this.form.value.jornadas_horas >= 5) {
+      this.resultados["actividad_por_jornal"] = `Realizar solo actividades combinadas como (corte de pavimento con demolicion de pavimento, demolicion de pavimento con instalacion de tuberia, demolicion de pavimento con construccion de manholes) solo dos actividades por jornal`;
     }
 
     // Cimentación de tubería
@@ -355,7 +350,7 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Instalación de tubería
-    if ( this.form.value.promedioExcavacion < 1.50) {
+    if ( this.form.value.promedioExcavacion <= 1.50) {
       this.resultados["instalacion_de_tuberia"] = "Compactar con dos canguros";
     }
     if ( this.form.value.promedioExcavacion > 1.50) {
@@ -371,7 +366,7 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Rasante de vía
-    if ( this.form.value.niveltransito === 'nivel_3') {
+    if ( this.form.value.niveldetransito === 'nivel_3') {
       this.resultados["rasante_en_la_via"] = "Utilizar pavimentadora";
     } else {
       this.resultados["rasante_en_la_via"] = "Utilizar 2 canguros";
