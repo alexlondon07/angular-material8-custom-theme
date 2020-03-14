@@ -108,6 +108,8 @@ export class BuildingParametersComponent implements OnInit {
     this.calcularCantidadesObra();
 
     this.calcularEquipoDeTrabajo();
+
+    this.calcularRendimientos();
   }
 
   /**
@@ -371,6 +373,29 @@ export class BuildingParametersComponent implements OnInit {
     } else {
       this.resultados["rasante_en_la_via"] = "Utilizar 2 canguros";
     }
+
+  }
+
+  /**
+   * Metodo para calcular los rendimientos
+   */
+  calcularRendimientos(){
+    
+    const CORTE_PAVIMENTO = 30;
+    const EXCAVACION_MECANICA = 26.4;
+    const INSTALACION_TUBERIA = 12;
+    const LLENO_COMPACTADO = 10.43;
+    const RASANTE_TEMPORAL = 1.32;
+    const ORDE_Y_ASEO = 1;
+    const CONSTRUCCION_DE_UNO_MANHOLE = 0;
+    const DEMOLICION_DE_PAVIMENTO = 0;
+    let RENDIMIENTO_MARTILLO_NEUMATICO = 0;
+    
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 20) {
+        RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
+    }
+    this.resultados["rendimiento_corte_de_pavimento"] = Math.round(( this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO ) * 1.3) ;
+    
 
   }
 }
