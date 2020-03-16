@@ -25,7 +25,7 @@ export class BuildingParametersComponent implements OnInit {
   triturado = "triturado";
   arenilla = "arenilla";
   arenilla_triturado = "arenilla_triturado";
-  retro_excavadora_120_320= "Retro excavadora de 120 o excavadora 320";
+  retro_excavadora_120_320 = "Retro excavadora de 120 o excavadora 320";
   retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
 
   // Opciones de los selects
@@ -352,23 +352,23 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Instalación de tubería
-    if ( this.form.value.promedioExcavacion <= 1.50) {
+    if (this.form.value.promedioExcavacion <= 1.50) {
       this.resultados["instalacion_de_tuberia"] = "Compactar con dos canguros";
     }
-    if ( this.form.value.promedioExcavacion > 1.50) {
+    if (this.form.value.promedioExcavacion > 1.50) {
       this.resultados["instalacion_de_tuberia"] = "Compactar con 1 canguro y 1 rodillo compactador";
     }
 
     // Botada de material
     if (this.form.value.pmt === 'cierres_parciales') {
-      this.resultados["botada_material_equipo"] ="Utilizar volquetas sencillas";
+      this.resultados["botada_material_equipo"] = "Utilizar volquetas sencillas";
     }
     if (this.form.value.pmt === 'cierres_totales') {
-      this.resultados["botada_material_equipo"] ="Utilizar volquetas doble troque.";
+      this.resultados["botada_material_equipo"] = "Utilizar volquetas doble troque.";
     }
 
     // Rasante de vía
-    if ( this.form.value.niveldetransito === 'nivel_3') {
+    if (this.form.value.niveldetransito === 'nivel_3') {
       this.resultados["rasante_en_la_via"] = "Utilizar pavimentadora";
     } else {
       this.resultados["rasante_en_la_via"] = "Utilizar 2 canguros";
@@ -379,23 +379,88 @@ export class BuildingParametersComponent implements OnInit {
   /**
    * Metodo para calcular los rendimientos
    */
-  calcularRendimientos(){
-    
+  calcularRendimientos() {
     const CORTE_PAVIMENTO = 30;
-    const EXCAVACION_MECANICA = 26.4;
+    let EXCAVACION_MECANICA_M3_DIA = 0;
+    const INSTALACION_DE_CIMENTACION_M3_DIA = 13.72;
     const INSTALACION_TUBERIA = 12;
     const LLENO_COMPACTADO = 10.43;
     const RASANTE_TEMPORAL = 1.32;
-    const ORDE_Y_ASEO = 1;
+    const ORDEN_Y_ASEO = 1;
     const CONSTRUCCION_DE_UNO_MANHOLE = 0;
     const DEMOLICION_DE_PAVIMENTO = 0;
     let RENDIMIENTO_MARTILLO_NEUMATICO = 0;
-    
+    let BOCAT_O_MINI_RETRO = 0;
+    let RETRO_EXCAVADORA_320 = 0;
+    this.resultados["rendimiento_bocat_mini_retro"] = 'Error en';
+    this.resultados["rendimiento_retro_excavadora_320"] = 'Error en';
+
     if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 20) {
-        RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
+      RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
     }
-    this.resultados["rendimiento_corte_de_pavimento"] = Math.round(( this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO ) * 1.3) ;
-    
+
+    // Rendimiento de corte de pavimentación
+    this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
+
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 20 && this.form.value.espesor_pavimento <= 30) {
+      BOCAT_O_MINI_RETRO = 3.3;
+    }
+
+    // Rendimiento de Retro Excavadora 320
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 30) {
+      RETRO_EXCAVADORA_320 = 8.8;
+    }
+
+    // Rendimiento de Bocat o Mini Retro -- Rigido
+    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 20) {
+      BOCAT_O_MINI_RETRO = 2.2;
+    }
+    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
+      RETRO_EXCAVADORA_320 = 5.78;
+    }
+
+    // Calculos
+    if (RENDIMIENTO_MARTILLO_NEUMATICO) {
+      this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_MARTILLO_NEUMATICO) * 1.3);
+    }
+
+    if (RETRO_EXCAVADORA_320 > 0) {
+      this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
+    }
+
+    if (BOCAT_O_MINI_RETRO > 0) {
+      if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 20) {
+        this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / BOCAT_O_MINI_RETRO) * 1.3);
+      }
+    }
+
+    if (RETRO_EXCAVADORA_320 > 0) {
+      if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
+        this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
+      }
+    }
+
+    // Excavación mecánica
+    EXCAVACION_MECANICA_M3_DIA = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion;
+    this.resultados["rendimiento_excavacion_mecanica"] = Math.round((EXCAVACION_MECANICA_M3_DIA * 26.4) * 1.3);
+
+    // Instalación de arenilla o triturado
+    this.resultados["rendimiento_instal_arenilla_triturado"] = Math.round((this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+
+    // Instalación de arenilla + triturado
+    this.resultados["rendimiento_instal_arenilla_mas_triturado"] = 0;
+
+    // Instalación de tubería
+    this.resultados["rendimiento_instal_tuberia"] = Math.round((this.resultados['instalacion_tuberia'] / INSTALACION_TUBERIA) * 1.3);
+
+    // Lleno compactado
+    this.resultados['rendimiento_lleno_compactado'] = Math.round((this.resultados['lleno_compactado'] / LLENO_COMPACTADO) * 1.3);
+
+    // Rasante Temporal
+    this.resultados['rendimiento_rasante_temporal'] = Math.round((this.resultados['rasante_temporal'] / RASANTE_TEMPORAL) * 1.3);
+
+    // Orden y Aseo
+    this.resultados['rendimiento_orden_y_aseo'] = 0;
 
   }
 }
