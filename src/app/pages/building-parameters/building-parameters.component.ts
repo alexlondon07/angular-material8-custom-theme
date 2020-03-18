@@ -420,9 +420,14 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Calculos
-    if (RENDIMIENTO_MARTILLO_NEUMATICO) {
+    if (RENDIMIENTO_MARTILLO_NEUMATICO > 0) {
+      console.log('demolicion_del_pavimento--->', this.resultados["demolicion_del_pavimento"]);
+      console.log('RENDIMIENTO_MARTILLO_NEUMATICO--->', RENDIMIENTO_MARTILLO_NEUMATICO);
+
       this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_MARTILLO_NEUMATICO) * 1.3);
     }
+
+    console.log('RETRO_EXCAVADORA_320--->', RETRO_EXCAVADORA_320);
 
     if (RETRO_EXCAVADORA_320 > 0) {
       this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
