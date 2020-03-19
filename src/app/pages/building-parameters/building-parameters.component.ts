@@ -381,8 +381,10 @@ export class BuildingParametersComponent implements OnInit {
    */
   calcularRendimientos() {
     const CORTE_PAVIMENTO = 30;
+    let RENDIMIENTO_DEMOLICION_PAVIMENTO = 0;
     let EXCAVACION_MECANICA_M3_DIA = 0;
     const INSTALACION_DE_CIMENTACION_M3_DIA = 13.72;
+    const CIMENTACION_TIPO_ARENILLA = 0;
     const INSTALACION_TUBERIA = 12;
     const LLENO_COMPACTADO = 10.43;
     const RASANTE_TEMPORAL = 1.32;
@@ -395,39 +397,48 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados["rendimiento_bocat_mini_retro"] = 'Error en';
     this.resultados["rendimiento_retro_excavadora_320"] = 'Error en';
 
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 20) {
-      RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
-    }
-
     // Rendimiento de corte de pavimentación
     this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
 
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 20) {
+      RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
+      RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.31;
+    }
+
     if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 20 && this.form.value.espesor_pavimento <= 30) {
       BOCAT_O_MINI_RETRO = 3.3;
+      RENDIMIENTO_DEMOLICION_PAVIMENTO = 3.3;
     }
 
     // Rendimiento de Retro Excavadora 320
     if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 30) {
       RETRO_EXCAVADORA_320 = 8.8;
+      RENDIMIENTO_DEMOLICION_PAVIMENTO = 8.8;
     }
 
     // Rendimiento de Bocat o Mini Retro -- Rigido
     if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 20) {
       BOCAT_O_MINI_RETRO = 2.2;
+      RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.2;
     }
     if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
       RETRO_EXCAVADORA_320 = 5.78;
+      RENDIMIENTO_DEMOLICION_PAVIMENTO = 5.78;
     }
 
     // Calculos
-    if (RENDIMIENTO_MARTILLO_NEUMATICO > 0) {
-      console.log('demolicion_del_pavimento--->', this.resultados["demolicion_del_pavimento"]);
-      console.log('RENDIMIENTO_MARTILLO_NEUMATICO--->', RENDIMIENTO_MARTILLO_NEUMATICO);
 
-      this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_MARTILLO_NEUMATICO) * 1.3);
+    // Demolicion de pavimento
+    console.log('demolicion_del_pavimento', this.resultados["demolicion_del_pavimento"]);
+    console.log('RENDIMIENTO_DEMOLICION_PAVIMENTO', RENDIMIENTO_DEMOLICION_PAVIMENTO);
+
+    if ( RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
+      this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_DEMOLICION_PAVIMENTO) * 1.3);
     }
 
-    console.log('RETRO_EXCAVADORA_320--->', RETRO_EXCAVADORA_320);
+/*     if (RENDIMIENTO_MARTILLO_NEUMATICO > 0) {
+      this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_MARTILLO_NEUMATICO) * 1.3);
+    }
 
     if (RETRO_EXCAVADORA_320 > 0) {
       this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
@@ -443,7 +454,7 @@ export class BuildingParametersComponent implements OnInit {
       if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
         this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
       }
-    }
+    } */
 
     // Excavación mecánica
     EXCAVACION_MECANICA_M3_DIA = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion;
