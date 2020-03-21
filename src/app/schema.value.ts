@@ -53,7 +53,7 @@ export const schema = {
       { value: 'tipo3', name: 'Tipo III' },
       { value: 'tipo4', name: 'Tipo IV' },
     ],
-   "maquinas": [
+    "maquinas": [
       { value: 'cortadora_de_piso', name: 'Cortadora de piso', hora: 6694, dia: 0, mes: 0},
       { value: 'martillo_neumatico', name: 'Martillo neumatico', hora: 7500, dia: 0, mes: 0 },
       { value: 'mini_cargador_con_martillo', name: 'Mini Cargador con martillo', hora: 80000, dia: 0, mes: 0 },
