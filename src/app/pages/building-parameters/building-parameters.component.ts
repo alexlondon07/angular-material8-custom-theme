@@ -390,13 +390,14 @@ export class BuildingParametersComponent implements OnInit {
     const LLENO_COMPACTADO = 10.43;
     const RASANTE_TEMPORAL = 1.32;
     const ORDEN_Y_ASEO = 1;
-    const CONSTRUCCION_DE_UNO_MANHOLE = 0;
+    let CONSTRUCCION_DE_UNO_MANHOLE = 0;
     const DEMOLICION_DE_PAVIMENTO = 0;
     let RENDIMIENTO_MARTILLO_NEUMATICO = 0;
     let BOCAT_O_MINI_RETRO = 0;
     let RETRO_EXCAVADORA_320 = 0;
     this.resultados["rendimiento_bocat_mini_retro"] = 'Error en';
     this.resultados["rendimiento_retro_excavadora_320"] = 'Error en';
+    let orden_y_aseo =  new Array(); 
 
     // Rendimiento de corte de pavimentación
     this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
@@ -432,43 +433,71 @@ export class BuildingParametersComponent implements OnInit {
     // Demolicion de pavimento
     if ( RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
       this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_DEMOLICION_PAVIMENTO) * 1.3);
+      orden_y_aseo.push(this.resultados["rendimiento_demolicion_del_pavimento"]);
     }
 
     // Excavación mecánica
     EXCAVACION_MECANICA_M3_DIA = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion;
     this.resultados["rendimiento_excavacion_mecanica"] = Math.round((EXCAVACION_MECANICA_M3_DIA / 26.4) * 1.3);
+    orden_y_aseo.push(this.resultados["rendimiento_excavacion_mecanica"]);
+
 
     // Instalación de arenilla o triturado
     this.resultados["rendimiento_instal_arenilla_triturado"] = Math.round((this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+    orden_y_aseo.push(this.resultados["rendimiento_instal_arenilla_triturado"]);
 
     // Instalación de arenilla + triturado    
     if (this.form.value.materialcimentacion === this.arenilla_triturado) {
       let valor_cimentacion_arenilla_triturado = parseFloat(this.resultados['cimentacion_arenilla']) + parseFloat(this.resultados['cimentacion_triturado'] );
       this.texto = 'Instalación de arenilla más triturado';
+
       this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round (( valor_cimentacion_arenilla_triturado / INSTALACION_DE_CIMENTACION_M3_DIA ) * 1.3);
+
+      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
     } 
     if (this.form.value.materialcimentacion === this.arenilla) {
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
       this.texto = 'Instalación de arenilla';
+
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+
+      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
     }
 
     if (this.form.value.materialcimentacion === this.triturado) {
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
       this.texto = 'Instalación de triturado';
-    }
 
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+
+      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
+    }
 
     // Instalación de tubería
     this.resultados["rendimiento_instal_tuberia"] = Math.round((this.resultados['instalacion_tuberia'] / INSTALACION_TUBERIA) * 1.3);
+    orden_y_aseo.push(this.resultados["rendimiento_instal_tuberia"]);
+
 
     // Lleno compactado
     this.resultados['rendimiento_lleno_compactado'] = Math.round((this.resultados['lleno_compactado'] / LLENO_COMPACTADO) * 1.3);
+    orden_y_aseo.push(this.resultados["rendimiento_lleno_compactado"]);
 
     // Rasante Temporal
     this.resultados['rendimiento_rasante_temporal'] = Math.round((this.resultados['rasante_temporal'] / RASANTE_TEMPORAL) * 1.3);
+    orden_y_aseo.push(this.resultados["rendimiento_rasante_temporal"]);
 
     // Orden y Aseo
-    this.resultados['rendimiento_orden_y_aseo'] = 0;
+    const orden = Math.max(...orden_y_aseo);
+    this.resultados['rendimiento_orden_y_aseo'] = orden;
+
+    // Instalación del manhole
+    if (this.form.value.promedioExcavacion <= 1.5) {
+      this.resultados['rendimiento_manhole'] = 4;
+    }
+    if (this.form.value.promedioExcavacion > 1.5 && this.form.value.promedioExcavacion <= 2.5) {
+      this.resultados['rendimiento_manhole'] = 6;
+    }
+    if (this.form.value.promedioExcavacion > 2.5) {
+      this.resultados['rendimiento_manhole'] = 8;
+    }
 
   }
 }
