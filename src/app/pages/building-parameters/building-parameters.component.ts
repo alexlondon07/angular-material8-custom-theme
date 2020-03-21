@@ -27,6 +27,7 @@ export class BuildingParametersComponent implements OnInit {
   arenilla_triturado = "arenilla_triturado";
   retro_excavadora_120_320 = "Retro excavadora de 120 o excavadora 320";
   retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
+  texto = 'Instalación de arenilla o triturado';
 
   // Opciones de los selects
   ubicaciones = schema.ubicacion;
@@ -429,42 +430,33 @@ export class BuildingParametersComponent implements OnInit {
     // Calculos
 
     // Demolicion de pavimento
-    console.log('demolicion_del_pavimento', this.resultados["demolicion_del_pavimento"]);
-    console.log('RENDIMIENTO_DEMOLICION_PAVIMENTO', RENDIMIENTO_DEMOLICION_PAVIMENTO);
-
     if ( RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
       this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_DEMOLICION_PAVIMENTO) * 1.3);
     }
 
-/*     if (RENDIMIENTO_MARTILLO_NEUMATICO > 0) {
-      this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_MARTILLO_NEUMATICO) * 1.3);
-    }
-
-    if (RETRO_EXCAVADORA_320 > 0) {
-      this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
-    }
-
-    if (BOCAT_O_MINI_RETRO > 0) {
-      if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 20) {
-        this.resultados["rendimiento_bocat_mini_retro"] = Math.round((this.resultados["demolicion_del_pavimento"] / BOCAT_O_MINI_RETRO) * 1.3);
-      }
-    }
-
-    if (RETRO_EXCAVADORA_320 > 0) {
-      if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
-        this.resultados["rendimiento_retro_excavadora_320"] = Math.round((this.resultados["demolicion_del_pavimento"] / RETRO_EXCAVADORA_320) * 1.3);
-      }
-    } */
-
     // Excavación mecánica
     EXCAVACION_MECANICA_M3_DIA = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion;
-    this.resultados["rendimiento_excavacion_mecanica"] = Math.round((EXCAVACION_MECANICA_M3_DIA * 26.4) * 1.3);
+    this.resultados["rendimiento_excavacion_mecanica"] = Math.round((EXCAVACION_MECANICA_M3_DIA / 26.4) * 1.3);
 
     // Instalación de arenilla o triturado
     this.resultados["rendimiento_instal_arenilla_triturado"] = Math.round((this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
 
-    // Instalación de arenilla + triturado
-    this.resultados["rendimiento_instal_arenilla_mas_triturado"] = 0;
+    // Instalación de arenilla + triturado    
+    if (this.form.value.materialcimentacion === this.arenilla_triturado) {
+      let valor_cimentacion_arenilla_triturado = parseFloat(this.resultados['cimentacion_arenilla']) + parseFloat(this.resultados['cimentacion_triturado'] );
+      this.texto = 'Instalación de arenilla más triturado';
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round (( valor_cimentacion_arenilla_triturado / INSTALACION_DE_CIMENTACION_M3_DIA ) * 1.3);
+    } 
+    if (this.form.value.materialcimentacion === this.arenilla) {
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.texto = 'Instalación de arenilla';
+    }
+
+    if (this.form.value.materialcimentacion === this.triturado) {
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.texto = 'Instalación de triturado';
+    }
+
 
     // Instalación de tubería
     this.resultados["rendimiento_instal_tuberia"] = Math.round((this.resultados['instalacion_tuberia'] / INSTALACION_TUBERIA) * 1.3);

@@ -388,14 +388,6 @@
                         </div>
                     </mat-grid-tile>
 
-                    <mat-grid-tile *ngIf="form.controls['materialcimentacion'].value === 'arenilla_triturado'">
-                        <div class="text-inside">
-                            <mat-form-field>
-                                <mat-label>Cimentación triturado (m3)</mat-label>
-                                <input disabled matInput type="text" [value]="resultados['cimentacion_triturado'] | number:'1.2-2'">
-                            </mat-form-field>
-                        </div>
-                    </mat-grid-tile>
 
                     <mat-grid-tile>
                         <div class="text-inside">
@@ -459,25 +451,22 @@
                         <h4>Demolición del pavimento -----> </h4> {{ resultados['rendimiento_demolicion_del_pavimento'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
-                              <h4>Excavación mecánica-----> </h4> {{ resultados['rendimiento_excavacion_mecanica'] }} días </mat-list-item>
+                        <h4>Excavación mecánica-----> </h4> {{ resultados['rendimiento_excavacion_mecanica'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
-                                <h4>Instalación de Arenilla o Triturado-----> </h4> {{ resultados['rendimiento_instal_arenilla_triturado'] }} días </mat-list-item>
-
-                    <mat-list-item role="listitem">
-                      <h4>Instalación de Arenilla+Triturado-----> </h4> {{ resultados['rendimiento_instal_arenilla_mas_triturado'] }} días </mat-list-item>
+                        <h4>{{ texto }} -----> </h4> {{ resultados['rendimiento_arenilla_o_triturado_o_mas_triturado'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <h4>Instalación de tubería-----> </h4> {{ resultados['rendimiento_instal_tuberia'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
-                          <h4>Lleno compactado-----> </h4> {{ resultados['rendimiento_lleno_compactado'] }} días </mat-list-item>
+                        <h4>Lleno compactado-----> </h4> {{ resultados['rendimiento_lleno_compactado'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
-                      <h4>Rasante temporal-----> </h4> {{ resultados['rendimiento_rasante_temporal'] }} días </mat-list-item>
+                        <h4>Rasante temporal-----> </h4> {{ resultados['rendimiento_rasante_temporal'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">
-                      <h4>Orden y aseo (Horas)-----> </h4> {{ resultados['rendimiento_orden_y_aseo'] }} </mat-list-item>
+                        <h4>Orden y aseo (Horas)-----> </h4> {{ resultados['rendimiento_orden_y_aseo'] }} </mat-list-item>
 
                 </mat-list>
             </div>
