@@ -400,28 +400,28 @@ export class BuildingParametersComponent implements OnInit {
     // Rendimiento de corte de pavimentación
     this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
 
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 20) {
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 0.20) {
       RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.31;
     }
 
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 20 && this.form.value.espesor_pavimento <= 30) {
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 0.20 && this.form.value.espesor_pavimento <= 0.30) {
       BOCAT_O_MINI_RETRO = 3.3;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 3.3;
     }
 
     // Rendimiento de Retro Excavadora 320
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 30) {
+    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 0.30) {
       RETRO_EXCAVADORA_320 = 8.8;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 8.8;
     }
 
     // Rendimiento de Bocat o Mini Retro -- Rigido
-    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 20) {
+    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 0.20) {
       BOCAT_O_MINI_RETRO = 2.2;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.2;
     }
-    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 20) {
+    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 0.20) {
       RETRO_EXCAVADORA_320 = 5.78;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 5.78;
     }
