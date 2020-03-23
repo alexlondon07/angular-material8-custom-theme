@@ -475,6 +475,17 @@
                 </mat-list>
             </div>
         </mat-tab>
-        <mat-tab label="Costos">Costos </mat-tab>
+        <mat-tab label="Costos">
+            <div>
+                <mat-list role="list">
+                    <mat-list-item role="listitem">
+                        <h4>Corte de pavimento -----> </h4>COP {{ resultados['costo_corte_de_pavimento'] | currency }} </mat-list-item>
+
+                    <mat-list-item role="listitem">
+                        <h4>Excavación mecánica con bocat -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_bocat'] | currency }} </mat-list-item>
+
+                </mat-list>
+            </div>
+        </mat-tab>
     </mat-tab-group>
 </section>

@@ -38,6 +38,7 @@ export class BuildingParametersComponent implements OnInit {
   horarios = schema.horarios;
   pmts = schema.pmts;
   cimentaciones = schema.cimentaciones;
+  maquinas = schema.maquinas;
 
   // Resultados
   resultados = {};
@@ -111,6 +112,8 @@ export class BuildingParametersComponent implements OnInit {
     this.calcularEquipoDeTrabajo();
 
     this.calcularRendimientos();
+
+    this.calcularCostos();
   }
 
   /**
@@ -498,6 +501,21 @@ export class BuildingParametersComponent implements OnInit {
     if (this.form.value.promedioExcavacion > 2.5) {
       this.resultados['rendimiento_manhole'] = 8;
     }
+
+  }
+
+  /**
+   * 
+   */
+  calcularCostos(){
+    
+    // Costo de corte de pavimento
+    let valor_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
+    this.resultados['costo_corte_de_pavimento'] = valor_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento']; 
+
+    // Costo de excavación mecanica con bocat
+    let valor_excavacion_mecanica_con_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
+    this.resultados['costo_excavacion_mecanica_con_bocat'] = valor_excavacion_mecanica_con_bocat.dia * this.resultados['rendimiento_excavacion_mecanica'];
 
   }
 }
