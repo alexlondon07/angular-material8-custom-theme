@@ -39,6 +39,7 @@ export class BuildingParametersComponent implements OnInit {
   pmts = schema.pmts;
   cimentaciones = schema.cimentaciones;
   maquinas = schema.maquinas;
+  materiales = schema.materiales;
 
   // Resultados
   resultados = {};
@@ -509,13 +510,53 @@ export class BuildingParametersComponent implements OnInit {
    */
   calcularCostos(){
     
+    const RENDMIENTO_EXCAVACION_MECANICA = this.resultados['rendimiento_excavacion_mecanica'];
+
     // Costo de corte de pavimento
-    let valor_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
-    this.resultados['costo_corte_de_pavimento'] = valor_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento']; 
+    let costo_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
+    this.resultados['costo_corte_de_pavimento'] = costo_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento']; 
 
     // Costo de excavación mecanica con bocat
-    let valor_excavacion_mecanica_con_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
-    this.resultados['costo_excavacion_mecanica_con_bocat'] = valor_excavacion_mecanica_con_bocat.dia * this.resultados['rendimiento_excavacion_mecanica'];
+    let costo_excavacion_mecanica_con_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
+    this.resultados['costo_excavacion_mecanica_con_bocat'] = costo_excavacion_mecanica_con_bocat.dia * RENDMIENTO_EXCAVACION_MECANICA;
 
+    // Costo de excavación con pajarita
+    let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
+    this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
+  
+    // Costo de excavación con retro 120
+    let costo_excavacion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
+    this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
+
+    // Costo de excavación con retro 320
+    let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
+    this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
+
+    // Costo de excavación con mini retro
+    let costo_excavacion_mini_retro= this.maquinas.find(e => e.value === 'mini_retro');
+    this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mini_retro.dia * RENDMIENTO_EXCAVACION_MECANICA;
+
+    // Costo de cimentación de triturado
+    let costo_de_cimentacion_triturado = this.materiales.find(e => e.value === 'triturado');
+    this.resultados['costo_de_cimentacion_triturado'] = costo_de_cimentacion_triturado.precio * this.resultados['cimentacion_triturado'];
+
+    // Costo de cimentación de arenilla
+    let costo_de_cimentacion_arenilla = this.materiales.find(e => e.value === 'arenilla');
+    this.resultados['costo_de_cimentacion_arenilla'] = costo_de_cimentacion_arenilla.precio * this.resultados['cimentacion_arenilla'];
+
+    // Costo de cimentación de arenilla + triturado
+    this.resultados['costo_de_cimentacion_arenilla_mas_triturado'] = this.resultados['costo_de_cimentacion_triturado'] * this.resultados['costo_de_cimentacion_arenilla'];
+
+    // Instalacion de tubería 
+    this.resultados['costo_instalacion_de_tuberia'] = 0;
+
+    // Costo lleno compactado
+    let costo_de_base_regular = this.materialcimentacion.find(e => e.value === 'base_granular');
+    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'];
+    
+    // Rasante compactado
+    let costo_de_fresado = this.materialcimentacion.find(e => e.value === 'fresado');
+    this.resultados['costo_rasante_temporal'] = costo_de_fresado.precio * this.resultados['rasante_temporal'];
+  
   }
 }
