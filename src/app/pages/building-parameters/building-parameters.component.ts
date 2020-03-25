@@ -532,10 +532,6 @@ export class BuildingParametersComponent implements OnInit {
     let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
     this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
 
-    // Costo de excavación con mini retro
-    let costo_excavacion_mini_retro= this.maquinas.find(e => e.value === 'mini_retro');
-    this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mini_retro.dia * RENDMIENTO_EXCAVACION_MECANICA;
-
     // Costo de cimentación de triturado
     let costo_de_cimentacion_triturado = this.materiales.find(e => e.value === 'triturado');
     this.resultados['costo_de_cimentacion_triturado'] = costo_de_cimentacion_triturado.precio * this.resultados['cimentacion_triturado'];
