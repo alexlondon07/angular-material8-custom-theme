@@ -25,7 +25,7 @@ export const schema = {
       { value: 'arenilla', name: 'Arenilla', unidad: 'm3', precio: 35833 },
       { value: 'triturado', name: 'Triturado', unidad: 'm3', precio: 76208   },
       { value: 'subbase', name: 'Sub Base', unidad: 'm3' , precio: 70833  },
-      { value: 'base_granular', name: 'Base Granular', unidad: 'm3' , precio: 82333  },
+      { value: 'basegranular', name: 'Base Granular', unidad: 'm3' , precio: 82333  },
       { value: 'suelo_cemento', name: 'Suelo Cemento', unidad: 'm3' , precio: 97083  },
       { value: 'fresado', name: 'Fresado', unidad: 'm3' , precio: 180000  },
     ],

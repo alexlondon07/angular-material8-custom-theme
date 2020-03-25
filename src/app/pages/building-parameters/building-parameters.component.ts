@@ -547,8 +547,13 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados['costo_instalacion_de_tuberia'] = 0;
 
     // Costo lleno compactado
-    let costo_de_base_regular = this.materialcimentacion.find(e => e.value === 'base_granular');
-    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'];
+    const lleno = this.form.value.material_lleno_compactado;
+    let costo_de_base_regular = this.materialcimentacion.find(e => e.value === lleno);
+    
+    let costo_de_canguro = this.maquinas.find(e => e.value === 'canguro');
+
+    let costo_rodillo_compactador = this.maquinas.find(e => e.value === 'rodillo_compactador');
+    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'] + (this.resultados['rendimiento_lleno_compactado'] * costo_de_canguro.dia) + ( this.resultados['rendimiento_lleno_compactado'] * costo_rodillo_compactador.dia ) ;
     
     // Rasante compactado
     let costo_de_fresado = this.materialcimentacion.find(e => e.value === 'fresado');
