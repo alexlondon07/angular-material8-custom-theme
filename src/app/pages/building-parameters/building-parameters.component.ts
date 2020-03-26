@@ -27,6 +27,9 @@ export class BuildingParametersComponent implements OnInit {
   arenilla_triturado = "arenilla_triturado";
   retro_excavadora_120_320 = "Retro excavadora de 120 o excavadora 320";
   retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
+  mini_cargador_o_mini_retro = "Mini cargador o Mini retro";
+  mini_cargador_o_pajarita = "Mini cargador o Pajarita";
+
   texto = 'Instalación de arenilla o triturado';
 
   // Opciones de los selects
@@ -284,7 +287,7 @@ export class BuildingParametersComponent implements OnInit {
         this.resultados["demolicion"] = "Martillo neumatico";
       }
       if (this.form.value.espesor_pavimento >= 0.20 && this.form.value.espesor_pavimento <= 0.30) {
-        this.resultados["demolicion"] = "Mini cargador o Mini retro";
+        this.resultados["demolicion"] = this.mini_cargador_o_mini_retro;
       }
       if (this.form.value.espesor_pavimento >= 0.30) {
         this.resultados["demolicion"] = this.retro_excavadora_120_320;
@@ -293,7 +296,7 @@ export class BuildingParametersComponent implements OnInit {
     // Pavimento Rigido
     if (this.form.value.ubicacion === "pavimento_rigido") {
       if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
-        this.resultados["demolicion"] = "Mini cargador o Mini retro";
+        this.resultados["demolicion"] = this.mini_cargador_o_mini_retro;
       }
 
       if (this.form.value.espesor_pavimento > 0.20) {
@@ -316,7 +319,7 @@ export class BuildingParametersComponent implements OnInit {
       }
 
       if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
-        this.resultados["pmt_con_excavacion"] = "Mini cargador";
+        this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
 
       if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
@@ -327,7 +330,7 @@ export class BuildingParametersComponent implements OnInit {
     // Cierre totales
     if (this.form.value.pmt === 'cierres_totales') {
       if (this.form.value.diametro_tuberia <= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
-        this.resultados["pmt_con_excavacion"] = "Mini cargador";
+        this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
       if (this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
@@ -516,10 +519,42 @@ export class BuildingParametersComponent implements OnInit {
     let costo_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
     this.resultados['costo_corte_de_pavimento'] = costo_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento']; 
 
+    this.resultados['costo_excavacion_mecanica_con_retro_120'] = '';
+    this.resultados['costo_excavacion_mecanica_con_retro_320'] = '';
+    this.resultados['costo_excavacion_mecanica_con_pajarita'] = '';
+
+    switch (this.resultados["demolicion"]) {
+
+      case this.mini_cargador_o_mini_retro:
+        break;
+
+      case this.retro_excavadora_120_320:
+
+          let costo_excavacion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
+          this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
+
+          let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
+          this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
+          
+          break;
+      
+      case this.mini_cargador_o_pajarita:
+          let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
+          this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
+          break;
+
+      case 'Martillo neumatico':
+          break;
+    
+      default:
+        break;
+    }
+
     // Costo de excavación mecanica con bocat
     let costo_excavacion_mecanica_con_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
     this.resultados['costo_excavacion_mecanica_con_bocat'] = costo_excavacion_mecanica_con_bocat.dia * RENDMIENTO_EXCAVACION_MECANICA;
 
+    /* 
     // Costo de excavación con pajarita
     let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
     this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
@@ -531,7 +566,7 @@ export class BuildingParametersComponent implements OnInit {
     // Costo de excavación con retro 320
     let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
     this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
-
+ */
     // Costo de cimentación de triturado
     let costo_de_cimentacion_triturado = this.materiales.find(e => e.value === 'triturado');
     this.resultados['costo_de_cimentacion_triturado'] = costo_de_cimentacion_triturado.precio * this.resultados['cimentacion_triturado'];

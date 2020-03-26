@@ -443,6 +443,9 @@
         </mat-tab>
         <mat-tab label="Duración">
             <div>
+
+                <p>Estas son las duraciones de cada una de las actividades por separado, pero la actividad de instalacion de alcantarillado tendra la duracion de la actividad que presente mayor numero de dias.</p>
+
                 <mat-list role="list">
                     <mat-list-item role="listitem">
                         <h4>Corte de pavimento -----> </h4> {{ resultados['rendimiento_corte_de_pavimento'] }} días </mat-list-item>
@@ -484,13 +487,13 @@
                     <mat-list-item role="listitem">
                         <h4>Excavación mecánica con bocat -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_bocat'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_pajarita'] > 0">
                         <h4>Excavación mecánica con pajarita -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_pajarita'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_retro_120'] > 0">
                         <h4>Excavación mecánica con retro 120 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_120'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_retro_320'] > 0">
                         <h4>Excavación mecánica con retro 320 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_320'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem">
