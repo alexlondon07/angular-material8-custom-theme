@@ -487,7 +487,10 @@
                     <mat-list-item role="listitem" *ngIf="resultados['costo_demolicion_martillo_neumatico'] > 0">
                         <h4>Demolición Martillo neumatico -----> </h4>COP {{ resultados['costo_demolicion_martillo_neumatico'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="resultados['costo_mini_retro'] > 0">
+                        <h4>Demolición mini retro -----> </h4>COP {{ resultados['costo_mini_retro'] | currency }} </mat-list-item>
+
+                    <mat-list-item role="listitem" *ngIf="resultados['costo_excavacion_mecanica_con_bocat'] > 0">
                         <h4>Excavación mecánica con bocat -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_bocat'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_pajarita'] > 0">
