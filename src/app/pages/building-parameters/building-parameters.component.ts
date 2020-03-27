@@ -193,7 +193,21 @@ export class BuildingParametersComponent implements OnInit {
         2;
       this.resultados["cimentacion_triturado"] = cimentacion_triturado;
     }
-        
+
+    // Calculando material de lleno compactado automaticamente
+    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
+    let calculo_material_lleno_compactado_2 = 0;
+    if (this.form.value.materialcimentacion === "arenilla"){
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.resultados['cimentacion'] ;
+    }
+    if (this.form.value.materialcimentacion === "triturado"){
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.resultados['cimentacion_triturado'] ;
+    }
+    if (this.form.value.materialcimentacion === "arenilla_triturado"){
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( this.resultados['cimentacion_arenilla']  + this.resultados['cimentacion_triturado'] );
+    }
+    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2.toFixed(2));
+
     // Botada de material
     let botada_material =
       this.form.value.longitud_tuberia_excabar *
@@ -227,10 +241,6 @@ export class BuildingParametersComponent implements OnInit {
   calcularEspesorArenillaEspesorTriturado() {
     
     let opcion = this.form.value.materialcimentacion;
-
-    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
-    let calculo_material_lleno_compactado_2 = 0;
-
     if (opcion === "arenilla_triturado") {
       // Calcular espesor arenilla
       let cal0 = parseFloat(this.form.value.radio_de_tuberia) + 0.25;
@@ -243,21 +253,14 @@ export class BuildingParametersComponent implements OnInit {
         parseFloat(this.form.value.radio_de_tuberia);
       this.form.get("material_cimentacion_espesor_2").setValue(cal2);
 
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( cal1 + cal2 );
-
     } else {
       let cal0 = 2 * this.form.value.radio_de_tuberia;
       let cal1 = cal0 + 0.25;
       let cal = parseFloat(this.form.value.cama_de_cimentacion) + cal1;
       this.form.get("material_cimentacion_espesor").setValue(cal);
-
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - cal1 ;
-    }
-
-    // Calcular Espesor Mat de lleno compactado ( Calculo automatico )
-    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2.toFixed(2));
-        
+    }   
   }
+
 
   /**
    * Método para validar campo de cimentación y calcular el espesor arenilla y triturado
