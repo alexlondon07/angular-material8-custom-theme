@@ -24,6 +24,7 @@ export const schema = {
     "materialcimentacion": [
       { value: 'arenilla', name: 'Arenilla', unidad: 'm3', precio: 35833 },
       { value: 'triturado', name: 'Triturado', unidad: 'm3', precio: 76208   },
+      { value: 'arenilla_triturado', name: 'Arenilla + Triturado', precio: 0 },
       { value: 'subbase', name: 'Sub Base', unidad: 'm3' , precio: 70833  },
       { value: 'basegranular', name: 'Base Granular', unidad: 'm3' , precio: 82333  },
       { value: 'suelo_cemento', name: 'Suelo Cemento', unidad: 'm3' , precio: 97083  },

@@ -29,7 +29,7 @@ export class BuildingParametersComponent implements OnInit {
   retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
   mini_cargador_o_mini_retro = "Mini cargador o Mini retro";
   mini_cargador_o_pajarita = "Mini cargador o Pajarita";
-  martillo_neumatico  = "Martillo neumatico";
+  martillo_neumatico = "Martillo neumatico";
 
   texto = 'Instalación de arenilla o triturado';
 
@@ -193,7 +193,7 @@ export class BuildingParametersComponent implements OnInit {
         2;
       this.resultados["cimentacion_triturado"] = cimentacion_triturado;
     }
-
+        
     // Botada de material
     let botada_material =
       this.form.value.longitud_tuberia_excabar *
@@ -225,7 +225,12 @@ export class BuildingParametersComponent implements OnInit {
    * Calcular el espesor de arenilla y espesor triturado
    */
   calcularEspesorArenillaEspesorTriturado() {
+    
     let opcion = this.form.value.materialcimentacion;
+
+    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
+    let calculo_material_lleno_compactado_2 = 0;
+
     if (opcion === "arenilla_triturado") {
       // Calcular espesor arenilla
       let cal0 = parseFloat(this.form.value.radio_de_tuberia) + 0.25;
@@ -237,12 +242,21 @@ export class BuildingParametersComponent implements OnInit {
         parseFloat(this.form.value.cama_de_cimentacion) +
         parseFloat(this.form.value.radio_de_tuberia);
       this.form.get("material_cimentacion_espesor_2").setValue(cal2);
+
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( cal1 + cal2 );
+
     } else {
       let cal0 = 2 * this.form.value.radio_de_tuberia;
       let cal1 = cal0 + 0.25;
       let cal = parseFloat(this.form.value.cama_de_cimentacion) + cal1;
       this.form.get("material_cimentacion_espesor").setValue(cal);
+
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - cal1 ;
     }
+
+    // Calcular Espesor Mat de lleno compactado ( Calculo automatico )
+    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2);
+        
   }
 
   /**
@@ -405,7 +419,7 @@ export class BuildingParametersComponent implements OnInit {
     let RETRO_EXCAVADORA_320 = 0;
     this.resultados["rendimiento_bocat_mini_retro"] = 'Error en';
     this.resultados["rendimiento_retro_excavadora_320"] = 'Error en';
-    let orden_y_aseo =  new Array(); 
+    let orden_y_aseo = new Array();
 
     // Rendimiento de corte de pavimentación
     this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
@@ -439,7 +453,7 @@ export class BuildingParametersComponent implements OnInit {
     // Calculos
 
     // Demolicion de pavimento
-    if ( RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
+    if (RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
       this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_DEMOLICION_PAVIMENTO) * 1.3);
       orden_y_aseo.push(this.resultados["rendimiento_demolicion_del_pavimento"]);
     }
@@ -456,17 +470,17 @@ export class BuildingParametersComponent implements OnInit {
 
     // Instalación de arenilla + triturado    
     if (this.form.value.materialcimentacion === this.arenilla_triturado) {
-      let valor_cimentacion_arenilla_triturado = parseFloat(this.resultados['cimentacion_arenilla']) + parseFloat(this.resultados['cimentacion_triturado'] );
+      let valor_cimentacion_arenilla_triturado = parseFloat(this.resultados['cimentacion_arenilla']) + parseFloat(this.resultados['cimentacion_triturado']);
       this.texto = 'Instalación de arenilla más triturado';
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round (( valor_cimentacion_arenilla_triturado / INSTALACION_DE_CIMENTACION_M3_DIA ) * 1.3);
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((valor_cimentacion_arenilla_triturado / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
 
       orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
-    } 
+    }
     if (this.form.value.materialcimentacion === this.arenilla) {
       this.texto = 'Instalación de arenilla';
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
 
       orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
     }
@@ -474,7 +488,7 @@ export class BuildingParametersComponent implements OnInit {
     if (this.form.value.materialcimentacion === this.triturado) {
       this.texto = 'Instalación de triturado';
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]  = Math.round  ((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
 
       orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
     }
@@ -512,13 +526,13 @@ export class BuildingParametersComponent implements OnInit {
   /**
    * Metodo para calcular lso costos de la obra
    */
-  calcularCostos(){
-    
+  calcularCostos() {
+
     const RENDMIENTO_EXCAVACION_MECANICA = this.resultados['rendimiento_excavacion_mecanica'];
 
     // Costo de corte de pavimento
     let costo_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
-    this.resultados['costo_corte_de_pavimento'] = costo_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento']; 
+    this.resultados['costo_corte_de_pavimento'] = costo_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento'];
 
     this.resultados['costo_excavacion_mecanica_con_retro_120'] = '';
     this.resultados['costo_excavacion_mecanica_con_retro_320'] = '';
@@ -528,39 +542,39 @@ export class BuildingParametersComponent implements OnInit {
 
       case this.mini_cargador_o_mini_retro:
 
-          let costo_mini_retro = this.maquinas.find(e => e.value === 'mini_retro');
-          this.resultados['costo_mini_retro'] = costo_mini_retro.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_mini_retro = this.maquinas.find(e => e.value === 'mini_retro');
+        this.resultados['costo_mini_retro'] = costo_mini_retro.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
 
-          let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
-          this.resultados['costo_mini_cargador_con_martillo_bocat'] = costo_mini_cargador_con_martillo_bocat.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
-          
+        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
+        this.resultados['costo_mini_cargador_con_martillo_bocat'] = costo_mini_cargador_con_martillo_bocat.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+
         break;
 
       case this.retro_excavadora_120_320:
 
-          let costo_excavacion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
-          this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
+        let costo_excavacion_mecanica_con_retro_120 = this.maquinas.find(e => e.value === 'retro_excavadora_120');
+        this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
 
-          let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
-          this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
-          
-          let costo_demolicion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
-          this.resultados['costo_demolicion_mecanica_con_retro_120'] = costo_demolicion_mecanica_con_retro_120.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_excavacion_mecanica_con_retro_320 = this.maquinas.find(e => e.value === 'retro_excavadora_320');
+        this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
 
-          let costo_demolicion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
-          this.resultados['costo_demolicion_mecanica_con_retro_320'] = costo_demolicion_mecanica_con_retro_320.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_demolicion_mecanica_con_retro_120 = this.maquinas.find(e => e.value === 'retro_excavadora_120');
+        this.resultados['costo_demolicion_mecanica_con_retro_120'] = costo_demolicion_mecanica_con_retro_120.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
 
-          break;
-      
+        let costo_demolicion_mecanica_con_retro_320 = this.maquinas.find(e => e.value === 'retro_excavadora_320');
+        this.resultados['costo_demolicion_mecanica_con_retro_320'] = costo_demolicion_mecanica_con_retro_320.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+
+        break;
+
       case this.mini_cargador_o_pajarita:
-          let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
-          this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
-          break;
+        let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
+        this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
+        break;
 
       case this.martillo_neumatico:
-          let costo_martillo_neumatico = this.maquinas.find(e => e.value === 'martillo_neumatico');
-          this.resultados['costo_demolicion_martillo_neumatico'] = costo_martillo_neumatico.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
-          break;
+        let costo_martillo_neumatico = this.maquinas.find(e => e.value === 'martillo_neumatico');
+        this.resultados['costo_demolicion_martillo_neumatico'] = costo_martillo_neumatico.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        break;
 
       default:
         break;
@@ -597,15 +611,15 @@ export class BuildingParametersComponent implements OnInit {
     // Costo lleno compactado
     const lleno = this.form.value.material_lleno_compactado;
     let costo_de_base_regular = this.materialcimentacion.find(e => e.value === lleno);
-    
+
     let costo_de_canguro = this.maquinas.find(e => e.value === 'canguro');
 
     let costo_rodillo_compactador = this.maquinas.find(e => e.value === 'rodillo_compactador');
-    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'] + (this.resultados['rendimiento_lleno_compactado'] * costo_de_canguro.dia) + ( this.resultados['rendimiento_lleno_compactado'] * costo_rodillo_compactador.dia ) ;
-    
+    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'] + (this.resultados['rendimiento_lleno_compactado'] * costo_de_canguro.dia) + (this.resultados['rendimiento_lleno_compactado'] * costo_rodillo_compactador.dia);
+
     // Rasante compactado
     let costo_de_fresado = this.materialcimentacion.find(e => e.value === 'fresado');
     this.resultados['costo_rasante_temporal'] = costo_de_fresado.precio * this.resultados['rasante_temporal'];
-  
+
   }
 }
