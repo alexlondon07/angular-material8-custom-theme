@@ -255,7 +255,7 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Calcular Espesor Mat de lleno compactado ( Calculo automatico )
-    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2);
+    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2.toFixed(2));
         
   }
 
