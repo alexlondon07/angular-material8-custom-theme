@@ -491,16 +491,22 @@
                         <h4>Demolición mini retro -----> </h4>COP {{ resultados['costo_mini_retro'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem" *ngIf="resultados['costo_mini_cargador_con_martillo_bocat'] > 0">
-                        <h4>Excavación mecánica con bocat -----> </h4>COP {{ resultados['costo_mini_cargador_con_martillo_bocat'] | currency }} </mat-list-item>
+                        <h4>Demolición con bocat -----> </h4>COP {{ resultados['costo_mini_cargador_con_martillo_bocat'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_pajarita'] > 0">
                         <h4>Excavación mecánica con pajarita -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_pajarita'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_retro_120'] > 0">
-                        <h4>Excavación mecánica con retro 120 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_120'] | currency }} </mat-list-item>
+                        <h4>Excavación mecánica con retroexcavadora 120 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_120'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem" *ngIf="this.resultados['costo_excavacion_mecanica_con_retro_320'] > 0">
-                        <h4>Excavación mecánica con retro 320 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_320'] | currency }} </mat-list-item>
+                        <h4>Excavación mecánica con retroexcavadora 320 -----> </h4>COP {{ resultados['costo_excavacion_mecanica_con_retro_320'] | currency }} </mat-list-item>
+
+                    <mat-list-item role="listitem" *ngIf="this.resultados['costo_demolicion_mecanica_con_retro_120'] > 0">
+                        <h4>Demolición mecánica con retroexcavadora 120 -----> </h4>COP {{ resultados['costo_demolicion_mecanica_con_retro_120'] | currency }} </mat-list-item>
+
+                    <mat-list-item role="listitem" *ngIf="this.resultados['costo_demolicion_mecanica_con_retro_320'] > 0">
+                        <h4>Demolición mecánica con retroexcavadora 320 -----> </h4>COP {{ resultados['costo_demolicion_mecanica_con_retro_320'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem">
                         <h4>Cimentación triturado -----> </h4>COP {{ resultados['costo_de_cimentacion_triturado'] | currency }} </mat-list-item>

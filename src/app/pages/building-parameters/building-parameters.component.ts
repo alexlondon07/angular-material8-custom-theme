@@ -527,11 +527,10 @@ export class BuildingParametersComponent implements OnInit {
     switch (this.resultados["demolicion"]) {
 
       case this.mini_cargador_o_mini_retro:
-          // Costo de excavación mini retro
+
           let costo_mini_retro = this.maquinas.find(e => e.value === 'mini_retro');
           this.resultados['costo_mini_retro'] = costo_mini_retro.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
 
-          // Costo de demolicion mini cargador con martillo (Bocat)
           let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
           this.resultados['costo_mini_cargador_con_martillo_bocat'] = costo_mini_cargador_con_martillo_bocat.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
           
@@ -545,6 +544,12 @@ export class BuildingParametersComponent implements OnInit {
           let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
           this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
           
+          let costo_demolicion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
+          this.resultados['costo_demolicion_mecanica_con_retro_120'] = costo_demolicion_mecanica_con_retro_120.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+
+          let costo_demolicion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
+          this.resultados['costo_demolicion_mecanica_con_retro_320'] = costo_demolicion_mecanica_con_retro_320.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+
           break;
       
       case this.mini_cargador_o_pajarita:
