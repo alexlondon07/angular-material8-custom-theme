@@ -158,6 +158,10 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados["rasante_temporal"] =
       this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
 
+    // Calculando material de lleno compactado automaticamente
+    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
+    let calculo_material_lleno_compactado_2 = 0;
+
     // Cimentación m3
     let pi = 3.1415926535;
     if (
@@ -172,6 +176,11 @@ export class BuildingParametersComponent implements OnInit {
         this.form.value.longitud_tuberia_excabar *
         Math.pow(this.form.value.radio_de_tuberia, 2);
       this.resultados["cimentacion"] = cal1;
+
+      // Calculando material de lleno compactado automaticamente
+      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.form.value.material_cimentacion_espesor ;
+
+
     } else {
       let cimentacion_arenilla =
         this.form.value.longitud_tuberia_excabar *
@@ -191,21 +200,17 @@ export class BuildingParametersComponent implements OnInit {
           this.form.value.longitud_tuberia_excabar *
           Math.pow(this.form.value.radio_de_tuberia, 2)) /
         2;
+
       this.resultados["cimentacion_triturado"] = cimentacion_triturado;
+
+      // Calculando material de lleno compactado automaticamente
+      if (this.form.value.materialcimentacion === "arenilla_triturado"){
+        calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( this.form.value.material_cimentacion_espesor  + this.form.value.material_cimentacion_espesor_2  );
+      }
+
     }
 
     // Calculando material de lleno compactado automaticamente
-    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
-    let calculo_material_lleno_compactado_2 = 0;
-    if (this.form.value.materialcimentacion === "arenilla"){
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.resultados['cimentacion'] ;
-    }
-    if (this.form.value.materialcimentacion === "triturado"){
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.resultados['cimentacion_triturado'] ;
-    }
-    if (this.form.value.materialcimentacion === "arenilla_triturado"){
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( this.resultados['cimentacion_arenilla']  + this.resultados['cimentacion_triturado'] );
-    }
     this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2.toFixed(2));
 
     // Botada de material
