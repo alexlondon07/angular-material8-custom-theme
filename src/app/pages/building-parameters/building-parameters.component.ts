@@ -29,6 +29,7 @@ export class BuildingParametersComponent implements OnInit {
   retro_excavadora_312_320 = "Retro excavadora de 312 o excavadora 320";
   mini_cargador_o_mini_retro = "Mini cargador o Mini retro";
   mini_cargador_o_pajarita = "Mini cargador o Pajarita";
+  martillo_neumatico  = "Martillo neumatico";
 
   texto = 'Instalación de arenilla o triturado';
 
@@ -284,7 +285,7 @@ export class BuildingParametersComponent implements OnInit {
     // Pavimento Flexible
     if (this.form.value.ubicacion === "pavimento_flexible") {
       if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
-        this.resultados["demolicion"] = "Martillo neumatico";
+        this.resultados["demolicion"] = this.martillo_neumatico;
       }
       if (this.form.value.espesor_pavimento >= 0.20 && this.form.value.espesor_pavimento <= 0.30) {
         this.resultados["demolicion"] = this.mini_cargador_o_mini_retro;
@@ -509,7 +510,7 @@ export class BuildingParametersComponent implements OnInit {
   }
 
   /**
-   * 
+   * Metodo para calcular lso costos de la obra
    */
   calcularCostos(){
     
@@ -543,8 +544,11 @@ export class BuildingParametersComponent implements OnInit {
           this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
           break;
 
-      case 'Martillo neumatico':
+      case this.martillo_neumatico:
+          let costo_martillo_neumatico = this.maquinas.find(e => e.value === 'martillo_neumatico');
+          this.resultados['costo_demolicion_martillo_neumatico'] = costo_martillo_neumatico.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
           break;
+
     
       default:
         break;
