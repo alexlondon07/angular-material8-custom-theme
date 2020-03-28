@@ -333,35 +333,35 @@ export class BuildingParametersComponent implements OnInit {
     // Cierre parciales
     if (this.form.value.pmt === 'cierres_parciales') {
 
-      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = 'Mini reto o mini cargador';
       }
 
-      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia <= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia <= 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
 
-      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
 
-      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
     // Cierre totales
     if (this.form.value.pmt === 'cierres_totales') {
-      if (this.form.value.diametro_tuberia <= 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.diametro_tuberia <= 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
-      if (this.form.value.diametro_tuberia > 40 && this.form.value.longitud_tuberia_excabar < 2.5) {
+      if (this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
     // Cierres parciales o Cierres totales
-    if (this.form.value.pmt === 'cierres_totales' || this.form.value.pmt === 'cierres_parciales' && this.form.value.longitud_tuberia_excabar > 2.50) {
+    if (this.form.value.pmt === 'cierres_totales' || this.form.value.pmt === 'cierres_parciales' && this.form.value.promedioExcavacion > 2.50) {
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
