@@ -32,7 +32,7 @@ export class BuildingParametersComponent implements OnInit {
   martillo_neumatico = "Martillo neumatico";
   mini_retro_o_mini_cargador = "Mini retro o mini cargador";
 
-  texto = 'Instalación de arenilla o triturado';
+  texto = "Instalación de arenilla o triturado";
 
   // Opciones de los selects
   ubicaciones = schema.ubicacion;
@@ -49,7 +49,7 @@ export class BuildingParametersComponent implements OnInit {
   // Resultados
   resultados = {};
 
-  constructor(public snackBar: MatSnackBar, private fb: FormBuilder) { }
+  constructor(public snackBar: MatSnackBar, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.breakpoint = window.innerWidth <= 500 ? 1 : this.defaultColums;
@@ -110,7 +110,6 @@ export class BuildingParametersComponent implements OnInit {
    * Metodo para calcular los resultados
    */
   calcularResultados() {
-
     this.calcularEspesorArenillaEspesorTriturado();
 
     this.calcularCantidadesObra();
@@ -160,7 +159,9 @@ export class BuildingParametersComponent implements OnInit {
       this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha;
 
     // Calculando material de lleno compactado automaticamente
-    let calculo_material_lleno_compactado_1 = parseFloat(this.form.value.promedioExcavacion) - parseFloat(this.form.value.espesor_suelo_cemento);
+    let calculo_material_lleno_compactado_1 =
+      parseFloat(this.form.value.promedioExcavacion) -
+      parseFloat(this.form.value.espesor_suelo_cemento);
     let calculo_material_lleno_compactado_2 = 0;
 
     // Cimentación m3
@@ -171,59 +172,65 @@ export class BuildingParametersComponent implements OnInit {
     ) {
       let cal1 =
         this.form.value.longitud_tuberia_excabar *
-        this.form.value.anchobrecha *
-        this.form.value.material_cimentacion_espesor -
+          this.form.value.anchobrecha *
+          this.form.value.material_cimentacion_espesor -
         pi *
-        this.form.value.longitud_tuberia_excabar *
-        Math.pow(this.form.value.radio_de_tuberia, 2);
+          this.form.value.longitud_tuberia_excabar *
+          Math.pow(this.form.value.radio_de_tuberia, 2);
       this.resultados["cimentacion"] = cal1;
 
       // Calculando material de lleno compactado automaticamente
-      calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - this.form.value.material_cimentacion_espesor ;
-
-
+      calculo_material_lleno_compactado_2 =
+        calculo_material_lleno_compactado_1 -
+        this.form.value.material_cimentacion_espesor;
     } else {
       let cimentacion_arenilla =
         this.form.value.longitud_tuberia_excabar *
-        this.form.value.anchobrecha *
-        this.form.value.material_cimentacion_espesor -
+          this.form.value.anchobrecha *
+          this.form.value.material_cimentacion_espesor -
         (pi *
           this.form.value.longitud_tuberia_excabar *
           Math.pow(this.form.value.radio_de_tuberia, 2)) /
-        2;
+          2;
       this.resultados["cimentacion_arenilla"] = cimentacion_arenilla;
 
       let cimentacion_triturado =
         this.form.value.longitud_tuberia_excabar *
-        this.form.value.anchobrecha *
-        this.form.value.material_cimentacion_espesor_2 -
+          this.form.value.anchobrecha *
+          this.form.value.material_cimentacion_espesor_2 -
         (pi *
           this.form.value.longitud_tuberia_excabar *
           Math.pow(this.form.value.radio_de_tuberia, 2)) /
-        2;
+          2;
 
       this.resultados["cimentacion_triturado"] = cimentacion_triturado;
 
       // Calculando material de lleno compactado automaticamente
-      if (this.form.value.materialcimentacion === "arenilla_triturado"){
-        calculo_material_lleno_compactado_2  = calculo_material_lleno_compactado_1 - parseFloat( this.form.value.material_cimentacion_espesor  + this.form.value.material_cimentacion_espesor_2  );
+      if (this.form.value.materialcimentacion === "arenilla_triturado") {
+        calculo_material_lleno_compactado_2 =
+          calculo_material_lleno_compactado_1 -
+          parseFloat(
+            this.form.value.material_cimentacion_espesor +
+              this.form.value.material_cimentacion_espesor_2
+          );
       }
-
     }
 
     // Calculando material de lleno compactado automaticamente
-    this.form.get("material_lleno_espesor").setValue(calculo_material_lleno_compactado_2.toFixed(2));
+    this.form
+      .get("material_lleno_espesor")
+      .setValue(calculo_material_lleno_compactado_2.toFixed(2));
 
     // Botada de material
     let botada_material =
       this.form.value.longitud_tuberia_excabar *
-      this.form.value.anchobrecha *
-      this.form.value.promedioExcavacion *
-      1.3 +
+        this.form.value.anchobrecha *
+        this.form.value.promedioExcavacion *
+        1.3 +
       this.form.value.longitud_tuberia_excabar *
-      this.form.value.anchobrecha *
-      this.form.value.espesor_pavimento *
-      1.5;
+        this.form.value.anchobrecha *
+        this.form.value.espesor_pavimento *
+        1.5;
     this.resultados["botada_material"] = botada_material;
 
     // Rasante temporal
@@ -245,7 +252,6 @@ export class BuildingParametersComponent implements OnInit {
    * Calcular el espesor de arenilla y espesor triturado
    */
   calcularEspesorArenillaEspesorTriturado() {
-    
     let opcion = this.form.value.materialcimentacion;
     if (opcion === "arenilla_triturado") {
       // Calcular espesor arenilla
@@ -258,15 +264,13 @@ export class BuildingParametersComponent implements OnInit {
         parseFloat(this.form.value.cama_de_cimentacion) +
         parseFloat(this.form.value.radio_de_tuberia);
       this.form.get("material_cimentacion_espesor_2").setValue(cal2);
-
     } else {
       let cal0 = 2 * this.form.value.radio_de_tuberia;
       let cal1 = cal0 + 0.25;
       let cal = parseFloat(this.form.value.cama_de_cimentacion) + cal1;
       this.form.get("material_cimentacion_espesor").setValue(cal);
-    }   
+    }
   }
-
 
   /**
    * Método para validar campo de cimentación y calcular el espesor arenilla y triturado
@@ -302,110 +306,155 @@ export class BuildingParametersComponent implements OnInit {
    * Metodo para calcular el equipo de trabajo para la obra
    */
   calcularEquipoDeTrabajo() {
-
-    this.resultados["demolicion"] = '';
+    this.resultados["demolicion"] = "";
 
     // Pavimento Flexible
     if (this.form.value.ubicacion === "pavimento_flexible") {
-      if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
+      if (
+        this.form.value.espesor_pavimento >= 0 &&
+        this.form.value.espesor_pavimento <= 0.2
+      ) {
         this.resultados["demolicion"] = this.martillo_neumatico;
       }
-      if (this.form.value.espesor_pavimento >= 0.20 && this.form.value.espesor_pavimento <= 0.30) {
+      if (
+        this.form.value.espesor_pavimento >= 0.2 &&
+        this.form.value.espesor_pavimento <= 0.3
+      ) {
         this.resultados["demolicion"] = this.mini_cargador_o_mini_retro;
       }
-      if (this.form.value.espesor_pavimento >= 0.30) {
+      if (this.form.value.espesor_pavimento >= 0.3) {
         this.resultados["demolicion"] = this.retro_excavadora_120_320;
       }
     }
     // Pavimento Rigido
     if (this.form.value.ubicacion === "pavimento_rigido") {
-      if (this.form.value.espesor_pavimento >= 0 && this.form.value.espesor_pavimento <= 0.20) {
+      if (
+        this.form.value.espesor_pavimento >= 0 &&
+        this.form.value.espesor_pavimento <= 0.2
+      ) {
         this.resultados["demolicion"] = this.mini_cargador_o_mini_retro;
       }
 
-      if (this.form.value.espesor_pavimento > 0.20) {
+      if (this.form.value.espesor_pavimento > 0.2) {
         this.resultados["demolicion"] = this.retro_excavadora_120_320;
       }
     }
 
     // PMT con excavacion
-    this.resultados["pmt_con_excavacion"] = '';
+    this.resultados["pmt_con_excavacion"] = "";
 
     // Cierre parciales
-    if (this.form.value.pmt === 'cierres_parciales') {
-
-      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia < 40 && this.form.value.promedioExcavacion < 2.5) {
+    if (this.form.value.pmt === "cierres_parciales") {
+      if (
+        this.form.value.carriles_permitidos <= 3 &&
+        this.form.value.diametro_tuberia < 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.mini_retro_o_mini_cargador;
       }
 
-      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia <= 40 && this.form.value.promedioExcavacion < 2.5) {
+      if (
+        this.form.value.carriles_permitidos > 3 &&
+        this.form.value.diametro_tuberia <= 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
 
-      if (this.form.value.carriles_permitidos <= 3 && this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
+      if (
+        this.form.value.carriles_permitidos <= 3 &&
+        this.form.value.diametro_tuberia > 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
 
-      if (this.form.value.carriles_permitidos > 3 && this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
+      if (
+        this.form.value.carriles_permitidos > 3 &&
+        this.form.value.diametro_tuberia > 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
     // Cierre totales
-    if (this.form.value.pmt === 'cierres_totales') {
-      if (this.form.value.diametro_tuberia <= 40 && this.form.value.promedioExcavacion < 2.5) {
+    if (this.form.value.pmt === "cierres_totales") {
+      if (
+        this.form.value.diametro_tuberia <= 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.mini_cargador_o_pajarita;
       }
-      if (this.form.value.diametro_tuberia > 40 && this.form.value.promedioExcavacion < 2.5) {
+      if (
+        this.form.value.diametro_tuberia > 40 &&
+        this.form.value.promedioExcavacion < 2.5
+      ) {
         this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
       }
     }
 
     // Cierres parciales o Cierres totales
-    if (this.form.value.pmt === 'cierres_totales' || this.form.value.pmt === 'cierres_parciales' && this.form.value.promedioExcavacion > 2.50) {
+    if (
+      this.form.value.pmt === "cierres_totales" ||
+      (this.form.value.pmt === "cierres_parciales" &&
+        this.form.value.promedioExcavacion > 2.5)
+    ) {
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
     // Jornadas
-    if (this.form.value.jornadas_horas >= 0 && this.form.value.jornadas_horas < 5) {
-      this.resultados["actividad_por_jornal"] = `Realizar solo actividades unicas como (corte de pavimentos, demolicion de pavimento, instalacion de tuberia o manhole) solo una actividad por jornal.`;
+    if (
+      this.form.value.jornadas_horas >= 0 &&
+      this.form.value.jornadas_horas < 5
+    ) {
+      this.resultados[
+        "actividad_por_jornal"
+      ] = `Realizar solo actividades unicas como (corte de pavimentos, demolicion de pavimento, instalacion de tuberia o manhole) solo una actividad por jornal.`;
     }
     if (this.form.value.jornadas_horas >= 5) {
-      this.resultados["actividad_por_jornal"] = `Realizar solo actividades combinadas como (corte de pavimento con demolicion de pavimento, demolicion de pavimento con instalacion de tuberia, demolicion de pavimento con construccion de manholes) solo dos actividades por jornal`;
+      this.resultados[
+        "actividad_por_jornal"
+      ] = `Realizar solo actividades combinadas como (corte de pavimento con demolicion de pavimento, demolicion de pavimento con instalacion de tuberia, demolicion de pavimento con construccion de manholes) solo dos actividades por jornal`;
     }
 
     // Cimentación de tubería
     if (this.form.value.materialcimentacion === this.arenilla) {
-      this.resultados["cimentacion_de_tuberia"] = `Cama de cimentacion compactado mecanicamente con canguro y por encima del tubo minimo 15 cm compactado manualmente`;
-
+      this.resultados[
+        "cimentacion_de_tuberia"
+      ] = `Cama de cimentacion compactado mecanicamente con canguro y por encima del tubo minimo 15 cm compactado manualmente`;
     }
     if (this.form.value.materialcimentacion === this.arenilla_triturado) {
-      this.resultados["cimentacion_de_tuberia"] = `Capa de arenilla debe ser compactada manualmente con pison de mano`;
+      this.resultados[
+        "cimentacion_de_tuberia"
+      ] = `Capa de arenilla debe ser compactada manualmente con pison de mano`;
     }
 
     // Instalación de tubería
-    if (this.form.value.promedioExcavacion <= 1.50) {
+    if (this.form.value.promedioExcavacion <= 1.5) {
       this.resultados["instalacion_de_tuberia"] = "Compactar con dos canguros";
     }
-    if (this.form.value.promedioExcavacion > 1.50) {
-      this.resultados["instalacion_de_tuberia"] = "Compactar con 1 canguro y 1 rodillo compactador";
+    if (this.form.value.promedioExcavacion > 1.5) {
+      this.resultados["instalacion_de_tuberia"] =
+        "Compactar con 1 canguro y 1 rodillo compactador";
     }
 
     // Botada de material
-    if (this.form.value.pmt === 'cierres_parciales') {
-      this.resultados["botada_material_equipo"] = "Utilizar volquetas sencillas";
+    if (this.form.value.pmt === "cierres_parciales") {
+      this.resultados["botada_material_equipo"] =
+        "Utilizar volquetas sencillas";
     }
-    if (this.form.value.pmt === 'cierres_totales') {
-      this.resultados["botada_material_equipo"] = "Utilizar volquetas doble troque.";
+    if (this.form.value.pmt === "cierres_totales") {
+      this.resultados["botada_material_equipo"] =
+        "Utilizar volquetas doble troque.";
     }
 
     // Rasante de vía
-    if (this.form.value.niveldetransito === 'nivel_3') {
+    if (this.form.value.niveldetransito === "nivel_3") {
       this.resultados["rasante_en_la_via"] = "Utilizar pavimentadora";
     } else {
       this.resultados["rasante_en_la_via"] = "Utilizar 2 canguros";
     }
-
   }
 
   /**
@@ -426,35 +475,53 @@ export class BuildingParametersComponent implements OnInit {
     let RENDIMIENTO_MARTILLO_NEUMATICO = 0;
     let BOCAT_O_MINI_RETRO = 0;
     let RETRO_EXCAVADORA_320 = 0;
-    this.resultados["rendimiento_bocat_mini_retro"] = 'Error en';
-    this.resultados["rendimiento_retro_excavadora_320"] = 'Error en';
+    this.resultados["rendimiento_bocat_mini_retro"] = "Error en";
+    this.resultados["rendimiento_retro_excavadora_320"] = "Error en";
     let orden_y_aseo = new Array();
 
     // Rendimiento de corte de pavimentación
-    this.resultados["rendimiento_corte_de_pavimento"] = Math.round((this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3);
+    this.resultados["rendimiento_corte_de_pavimento"] = Math.round(
+      (this.resultados["corte_de_pavimento"] / CORTE_PAVIMENTO) * 1.3
+    );
 
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento <= 0.20) {
+    if (
+      this.form.value.ubicacion === "pavimento_flexible" &&
+      this.form.value.espesor_pavimento <= 0.2
+    ) {
       RENDIMIENTO_MARTILLO_NEUMATICO = 2.31;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.31;
     }
 
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 0.20 && this.form.value.espesor_pavimento <= 0.30) {
+    if (
+      this.form.value.ubicacion === "pavimento_flexible" &&
+      this.form.value.espesor_pavimento > 0.2 &&
+      this.form.value.espesor_pavimento <= 0.3
+    ) {
       BOCAT_O_MINI_RETRO = 3.3;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 3.3;
     }
 
     // Rendimiento de Retro Excavadora 320
-    if (this.form.value.ubicacion === "pavimento_flexible" && this.form.value.espesor_pavimento > 0.30) {
+    if (
+      this.form.value.ubicacion === "pavimento_flexible" &&
+      this.form.value.espesor_pavimento > 0.3
+    ) {
       RETRO_EXCAVADORA_320 = 8.8;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 8.8;
     }
 
     // Rendimiento de Bocat o Mini Retro -- Rigido
-    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento <= 0.20) {
+    if (
+      this.form.value.ubicacion === "pavimento_rigido" &&
+      this.form.value.espesor_pavimento <= 0.2
+    ) {
       BOCAT_O_MINI_RETRO = 2.2;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 2.2;
     }
-    if (this.form.value.ubicacion === "pavimento_rigido" && this.form.value.espesor_pavimento > 0.20) {
+    if (
+      this.form.value.ubicacion === "pavimento_rigido" &&
+      this.form.value.espesor_pavimento > 0.2
+    ) {
       RETRO_EXCAVADORA_320 = 5.78;
       RENDIMIENTO_DEMOLICION_PAVIMENTO = 5.78;
     }
@@ -463,190 +530,273 @@ export class BuildingParametersComponent implements OnInit {
 
     // Demolicion de pavimento
     if (RENDIMIENTO_DEMOLICION_PAVIMENTO > 0) {
-      this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round((this.resultados["demolicion_del_pavimento"] / RENDIMIENTO_DEMOLICION_PAVIMENTO) * 1.3);
-      orden_y_aseo.push(this.resultados["rendimiento_demolicion_del_pavimento"]);
+      this.resultados["rendimiento_demolicion_del_pavimento"] = Math.round(
+        (this.resultados["demolicion_del_pavimento"] /
+          RENDIMIENTO_DEMOLICION_PAVIMENTO) *
+          1.3
+      );
+      orden_y_aseo.push(
+        this.resultados["rendimiento_demolicion_del_pavimento"]
+      );
     }
 
     // Excavación mecánica
-    EXCAVACION_MECANICA_M3_DIA = this.form.value.longitud_tuberia_excabar * this.form.value.anchobrecha * this.form.value.promedioExcavacion;
-    this.resultados["rendimiento_excavacion_mecanica"] = Math.round((EXCAVACION_MECANICA_M3_DIA / 26.4) * 1.3);
+    EXCAVACION_MECANICA_M3_DIA =
+      this.form.value.longitud_tuberia_excabar *
+      this.form.value.anchobrecha *
+      this.form.value.promedioExcavacion;
+    this.resultados["rendimiento_excavacion_mecanica"] = Math.round(
+      (EXCAVACION_MECANICA_M3_DIA / 26.4) * 1.3
+    );
     orden_y_aseo.push(this.resultados["rendimiento_excavacion_mecanica"]);
 
-
     // Instalación de arenilla o triturado
-    this.resultados["rendimiento_instal_arenilla_triturado"] = Math.round((this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+    this.resultados["rendimiento_instal_arenilla_triturado"] = Math.round(
+      (this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3
+    );
     orden_y_aseo.push(this.resultados["rendimiento_instal_arenilla_triturado"]);
 
-    // Instalación de arenilla + triturado    
+    // Instalación de arenilla + triturado
     if (this.form.value.materialcimentacion === this.arenilla_triturado) {
-      let valor_cimentacion_arenilla_triturado = parseFloat(this.resultados['cimentacion_arenilla']) + parseFloat(this.resultados['cimentacion_triturado']);
-      this.texto = 'Instalación de arenilla más triturado';
+      let valor_cimentacion_arenilla_triturado =
+        parseFloat(this.resultados["cimentacion_arenilla"]) +
+        parseFloat(this.resultados["cimentacion_triturado"]);
+      this.texto = "Instalación de arenilla más triturado";
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((valor_cimentacion_arenilla_triturado / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.resultados[
+        "rendimiento_arenilla_o_triturado_o_mas_triturado"
+      ] = Math.round(
+        (valor_cimentacion_arenilla_triturado /
+          INSTALACION_DE_CIMENTACION_M3_DIA) *
+          1.3
+      );
 
-      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
+      orden_y_aseo.push(
+        this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]
+      );
     }
     if (this.form.value.materialcimentacion === this.arenilla) {
-      this.texto = 'Instalación de arenilla';
+      this.texto = "Instalación de arenilla";
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.resultados[
+        "rendimiento_arenilla_o_triturado_o_mas_triturado"
+      ] = Math.round(
+        (this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) *
+          1.3
+      );
 
-      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
+      orden_y_aseo.push(
+        this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]
+      );
     }
 
     if (this.form.value.materialcimentacion === this.triturado) {
-      this.texto = 'Instalación de triturado';
+      this.texto = "Instalación de triturado";
 
-      this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"] = Math.round((this.resultados['cimentacion'] / INSTALACION_DE_CIMENTACION_M3_DIA) * 1.3);
+      this.resultados[
+        "rendimiento_arenilla_o_triturado_o_mas_triturado"
+      ] = Math.round(
+        (this.resultados["cimentacion"] / INSTALACION_DE_CIMENTACION_M3_DIA) *
+          1.3
+      );
 
-      orden_y_aseo.push(this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]);
+      orden_y_aseo.push(
+        this.resultados["rendimiento_arenilla_o_triturado_o_mas_triturado"]
+      );
     }
 
     // Instalación de tubería
-    this.resultados["rendimiento_instal_tuberia"] = Math.round((this.resultados['instalacion_tuberia'] / INSTALACION_TUBERIA) * 1.3);
+    this.resultados["rendimiento_instal_tuberia"] = Math.round(
+      (this.resultados["instalacion_tuberia"] / INSTALACION_TUBERIA) * 1.3
+    );
     orden_y_aseo.push(this.resultados["rendimiento_instal_tuberia"]);
 
-
     // Lleno compactado
-    this.resultados['rendimiento_lleno_compactado'] = Math.round((this.resultados['lleno_compactado'] / LLENO_COMPACTADO) * 1.3);
+    this.resultados["rendimiento_lleno_compactado"] = Math.round(
+      (this.resultados["lleno_compactado"] / LLENO_COMPACTADO) * 1.3
+    );
     orden_y_aseo.push(this.resultados["rendimiento_lleno_compactado"]);
 
     // Rasante Temporal
-    this.resultados['rendimiento_rasante_temporal'] = Math.round((this.resultados['rasante_temporal'] / RASANTE_TEMPORAL) * 1.3);
+    this.resultados["rendimiento_rasante_temporal"] = Math.round(
+      (this.resultados["rasante_temporal"] / RASANTE_TEMPORAL) * 1.3
+    );
     orden_y_aseo.push(this.resultados["rendimiento_rasante_temporal"]);
 
     // Orden y Aseo
     const orden = Math.max(...orden_y_aseo);
-    this.resultados['rendimiento_orden_y_aseo'] = orden;
+    this.resultados["rendimiento_orden_y_aseo"] = orden;
 
     // Instalación del manhole
     if (this.form.value.promedioExcavacion <= 1.5) {
-      this.resultados['rendimiento_manhole'] = 4;
+      this.resultados["rendimiento_manhole"] = 4;
     }
-    if (this.form.value.promedioExcavacion > 1.5 && this.form.value.promedioExcavacion <= 2.5) {
-      this.resultados['rendimiento_manhole'] = 6;
+    if (
+      this.form.value.promedioExcavacion > 1.5 &&
+      this.form.value.promedioExcavacion <= 2.5
+    ) {
+      this.resultados["rendimiento_manhole"] = 6;
     }
     if (this.form.value.promedioExcavacion > 2.5) {
-      this.resultados['rendimiento_manhole'] = 8;
+      this.resultados["rendimiento_manhole"] = 8;
     }
-
   }
 
   /**
    * Metodo para calcular lso costos de la obra
    */
   calcularCostos() {
-
-    const RENDMIENTO_EXCAVACION_MECANICA = this.resultados['rendimiento_excavacion_mecanica'];
+    const RENDMIENTO_EXCAVACION_MECANICA = this.resultados[
+      "rendimiento_excavacion_mecanica"
+    ];
 
     // Costo de corte de pavimento
-    let costo_cortadora_de_piso = this.maquinas.find(e => e.value === 'cortadora_de_piso');
-    this.resultados['costo_corte_de_pavimento'] = costo_cortadora_de_piso.dia * this.resultados['rendimiento_corte_de_pavimento'];
+    let costo_cortadora_de_piso = this.maquinas.find(
+      e => e.value === "cortadora_de_piso"
+    );
+    this.resultados["costo_corte_de_pavimento"] =
+      costo_cortadora_de_piso.dia *
+      this.resultados["rendimiento_corte_de_pavimento"];
 
-    this.resultados['costo_excavacion_mecanica_con_retro_120'] = '';
-    this.resultados['costo_excavacion_mecanica_con_retro_320'] = '';
-    this.resultados['costo_excavacion_mecanica_con_pajarita'] = '';
-
+    this.resultados["costo_excavacion_mecanica_con_retro_120"] = "";
+    this.resultados["costo_excavacion_mecanica_con_retro_320"] = "";
+    this.resultados["costo_excavacion_mecanica_con_pajarita"] = "";
 
     console.log('this.resultados["demolicion"]', this.resultados["demolicion"]);
     switch (this.resultados["demolicion"]) {
-
       case this.mini_cargador_o_mini_retro:
+        let costo_mini_retro = this.maquinas.find(
+          e => e.value === "mini_retro"
+        );
+        this.resultados["costo_mini_retro"] =
+          costo_mini_retro.dia *
+          this.resultados["rendimiento_demolicion_del_pavimento"];
 
-        let costo_mini_retro = this.maquinas.find(e => e.value === 'mini_retro');
-        this.resultados['costo_mini_retro'] = costo_mini_retro.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
-
-        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
-        this.resultados['costo_mini_cargador_con_martillo_bocat'] = costo_mini_cargador_con_martillo_bocat.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(
+          e => e.value === "mini_cargador_con_martillo"
+        );
+        this.resultados["costo_mini_cargador_con_martillo_bocat"] =
+          costo_mini_cargador_con_martillo_bocat.dia *
+          this.resultados["rendimiento_demolicion_del_pavimento"];
 
         break;
 
       case this.retro_excavadora_120_320:
-        let costo_demolicion_mecanica_con_retro_120 = this.maquinas.find(e => e.value === 'retro_excavadora_120');
-        this.resultados['costo_demolicion_mecanica_con_retro_120'] = costo_demolicion_mecanica_con_retro_120.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_demolicion_mecanica_con_retro_120 = this.maquinas.find(
+          e => e.value === "retro_excavadora_120"
+        );
+        this.resultados["costo_demolicion_mecanica_con_retro_120"] =
+          costo_demolicion_mecanica_con_retro_120.dia *
+          this.resultados["rendimiento_demolicion_del_pavimento"];
 
-        let costo_demolicion_mecanica_con_retro_320 = this.maquinas.find(e => e.value === 'retro_excavadora_320');
-        this.resultados['costo_demolicion_mecanica_con_retro_320'] = costo_demolicion_mecanica_con_retro_320.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_demolicion_mecanica_con_retro_320 = this.maquinas.find(
+          e => e.value === "retro_excavadora_320"
+        );
+        this.resultados["costo_demolicion_mecanica_con_retro_320"] =
+          costo_demolicion_mecanica_con_retro_320.dia *
+          this.resultados["rendimiento_demolicion_del_pavimento"];
 
-        break;
-
-      case this.mini_cargador_o_pajarita:
-        let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
-        this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
         break;
 
       case this.martillo_neumatico:
-        let costo_martillo_neumatico = this.maquinas.find(e => e.value === 'martillo_neumatico');
-        this.resultados['costo_demolicion_martillo_neumatico'] = costo_martillo_neumatico.dia * this.resultados['rendimiento_demolicion_del_pavimento'];
+        let costo_martillo_neumatico = this.maquinas.find(
+          e => e.value === "martillo_neumatico"
+        );
+        this.resultados["costo_demolicion_martillo_neumatico"] =
+          costo_martillo_neumatico.dia *
+          this.resultados["rendimiento_demolicion_del_pavimento"];
         break;
     }
 
-    console.log('this.resultados["pmt_con_excavacion"]', this.resultados["pmt_con_excavacion"]);
-
-    switch (this.resultados['pmt_con_excavacion']) {
-
+    switch (this.resultados["pmt_con_excavacion"]) {
       case this.mini_retro_o_mini_cargador:
+        let costo_mini_retro = this.maquinas.find(
+          e => e.value === "mini_retro"
+        );
+        this.resultados["costo_excavacion_mini_retro"] =
+          costo_mini_retro.dia *
+          this.resultados["rendimiento_excavacion_mecanica"];
 
-        let costo_mini_retro = this.maquinas.find(e => e.value === 'mini_retro');
-        this.resultados['costo_excavacion_mini_retro'] = costo_mini_retro.dia * this.resultados['rendimiento_excavacion_mecanica'];
-
-        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(e => e.value === 'mini_cargador_con_martillo');
-        this.resultados['costo_excavacion_mini_cargador_con_martillo_bocat'] = costo_mini_cargador_con_martillo_bocat.dia * this.resultados['rendimiento_excavacion_mecanica'];
+        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(
+          e => e.value === "mini_cargador_con_martillo"
+        );
+        this.resultados["costo_excavacion_mini_cargador_con_martillo_bocat"] =
+          costo_mini_cargador_con_martillo_bocat.dia *
+          this.resultados["rendimiento_excavacion_mecanica"];
         break;
 
       case this.retro_excavadora_120_320:
-        let costo_excavacion_mecanica_con_retro_120 = this.maquinas.find(e => e.value === 'retro_excavadora_120');
-        this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
+        let costo_excavacion_mecanica_con_retro_120 = this.maquinas.find(
+          e => e.value === "retro_excavadora_120"
+        );
+        this.resultados["costo_excavacion_mecanica_con_retro_120"] =
+          costo_excavacion_mecanica_con_retro_120.dia *
+          RENDMIENTO_EXCAVACION_MECANICA;
 
-        let costo_excavacion_mecanica_con_retro_320 = this.maquinas.find(e => e.value === 'retro_excavadora_320');
-        this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
-
+        let costo_excavacion_mecanica_con_retro_320 = this.maquinas.find(
+          e => e.value === "retro_excavadora_320"
+        );
+        this.resultados["costo_excavacion_mecanica_con_retro_320"] =
+          costo_excavacion_mecanica_con_retro_320.dia *
+          RENDMIENTO_EXCAVACION_MECANICA;
         break;
-    
-      default:
+
+      case this.mini_cargador_o_pajarita:
+        let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(
+          e => e.value === "pajarita"
+        );
+        this.resultados["costo_excavacion_mecanica_con_pajarita"] =
+          costo_excavacion_mecanica_con_pajarita.dia *
+          RENDMIENTO_EXCAVACION_MECANICA;
         break;
     }
 
-
-    /* 
-    // Costo de excavación con pajarita
-    let costo_excavacion_mecanica_con_pajarita = this.maquinas.find(e => e.value === 'pajarita');
-    this.resultados['costo_excavacion_mecanica_con_pajarita'] = costo_excavacion_mecanica_con_pajarita.dia * RENDMIENTO_EXCAVACION_MECANICA;
-  
-    // Costo de excavación con retro 120
-    let costo_excavacion_mecanica_con_retro_120= this.maquinas.find(e => e.value === 'retro_excavadora_120');
-    this.resultados['costo_excavacion_mecanica_con_retro_120'] = costo_excavacion_mecanica_con_retro_120.dia * RENDMIENTO_EXCAVACION_MECANICA;
-
-    // Costo de excavación con retro 320
-    let costo_excavacion_mecanica_con_retro_320= this.maquinas.find(e => e.value === 'retro_excavadora_320');
-    this.resultados['costo_excavacion_mecanica_con_retro_320'] = costo_excavacion_mecanica_con_retro_320.dia * RENDMIENTO_EXCAVACION_MECANICA;
- */
     // Costo de cimentación de triturado
-    let costo_de_cimentacion_triturado = this.materiales.find(e => e.value === 'triturado');
-    this.resultados['costo_de_cimentacion_triturado'] = costo_de_cimentacion_triturado.precio * this.resultados['cimentacion_triturado'];
+    let costo_de_cimentacion_triturado = this.materiales.find(
+      e => e.value === "triturado"
+    );
+    this.resultados["costo_de_cimentacion_triturado"] =
+      costo_de_cimentacion_triturado.precio *
+      this.resultados["cimentacion_triturado"];
 
     // Costo de cimentación de arenilla
-    let costo_de_cimentacion_arenilla = this.materiales.find(e => e.value === 'arenilla');
-    this.resultados['costo_de_cimentacion_arenilla'] = costo_de_cimentacion_arenilla.precio * this.resultados['cimentacion_arenilla'];
+    let costo_de_cimentacion_arenilla = this.materiales.find(
+      e => e.value === "arenilla"
+    );
+    this.resultados["costo_de_cimentacion_arenilla"] =
+      costo_de_cimentacion_arenilla.precio *
+      this.resultados["cimentacion_arenilla"];
 
     // Costo de cimentación de arenilla + triturado
-    this.resultados['costo_de_cimentacion_arenilla_mas_triturado'] = this.resultados['costo_de_cimentacion_triturado'] * this.resultados['costo_de_cimentacion_arenilla'];
+    this.resultados["costo_de_cimentacion_arenilla_mas_triturado"] =
+      this.resultados["costo_de_cimentacion_triturado"] *
+      this.resultados["costo_de_cimentacion_arenilla"];
 
-    // Instalacion de tubería 
-    this.resultados['costo_instalacion_de_tuberia'] = 0;
+    // Instalacion de tubería
+    this.resultados["costo_instalacion_de_tuberia"] = 0;
 
     // Costo lleno compactado
     const lleno = this.form.value.material_lleno_compactado;
-    let costo_de_base_regular = this.materialcimentacion.find(e => e.value === lleno);
+    let costo_de_base_regular = this.materialcimentacion.find(
+      e => e.value === lleno
+    );
 
-    let costo_de_canguro = this.maquinas.find(e => e.value === 'canguro');
+    let costo_de_canguro = this.maquinas.find(e => e.value === "canguro");
 
-    let costo_rodillo_compactador = this.maquinas.find(e => e.value === 'rodillo_compactador');
-    this.resultados['costo_lleno_compactado'] = costo_de_base_regular.precio * this.resultados['lleno_compactado'] + (this.resultados['rendimiento_lleno_compactado'] * costo_de_canguro.dia) + (this.resultados['rendimiento_lleno_compactado'] * costo_rodillo_compactador.dia);
+    let costo_rodillo_compactador = this.maquinas.find(
+      e => e.value === "rodillo_compactador"
+    );
+    this.resultados["costo_lleno_compactado"] =
+      costo_de_base_regular.precio * this.resultados["lleno_compactado"] +
+      this.resultados["rendimiento_lleno_compactado"] * costo_de_canguro.dia +
+      this.resultados["rendimiento_lleno_compactado"] *
+        costo_rodillo_compactador.dia;
 
     // Rasante compactado
-    let costo_de_fresado = this.materialcimentacion.find(e => e.value === 'fresado');
-    this.resultados['costo_rasante_temporal'] = costo_de_fresado.precio * this.resultados['rasante_temporal'];
-
+    let costo_de_fresado = this.materialcimentacion.find(
+      e => e.value === "fresado"
+    );
+    this.resultados["costo_rasante_temporal"] =
+      costo_de_fresado.precio * this.resultados["rasante_temporal"];
   }
 }
