@@ -358,7 +358,7 @@ export class BuildingParametersComponent implements OnInit {
         this.form.value.diametro_tuberia <= 40 &&
         this.form.value.promedioExcavacion < 2.5
       ) {
-        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
+        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
       }
 
       if (
@@ -374,7 +374,7 @@ export class BuildingParametersComponent implements OnInit {
         this.form.value.diametro_tuberia > 40 &&
         this.form.value.promedioExcavacion < 2.5
       ) {
-        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
+        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
       }
     }
 
@@ -390,7 +390,7 @@ export class BuildingParametersComponent implements OnInit {
         this.form.value.diametro_tuberia > 40 &&
         this.form.value.promedioExcavacion < 2.5
       ) {
-        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_312_320;
+        this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
       }
     }
 
@@ -662,7 +662,7 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados["costo_excavacion_mecanica_con_retro_320"] = "";
     this.resultados["costo_excavacion_mecanica_con_pajarita"] = "";
 
-    console.log('this.resultados["demolicion"]', this.resultados["demolicion"]);
+    // Demolición
     switch (this.resultados["demolicion"]) {
       case this.mini_cargador_o_mini_retro:
         let costo_mini_retro = this.maquinas.find(
@@ -711,6 +711,8 @@ export class BuildingParametersComponent implements OnInit {
     let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(
       e => e.value === "mini_cargador_con_martillo"
     );
+
+    // Excavacion
     switch (this.resultados["pmt_con_excavacion"]) {
       case this.mini_retro_o_mini_cargador:
         let costo_mini_retro = this.maquinas.find(
