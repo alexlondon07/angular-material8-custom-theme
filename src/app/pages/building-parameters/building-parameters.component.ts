@@ -396,7 +396,6 @@ export class BuildingParametersComponent implements OnInit {
 
     // Cierres parciales o Cierres totales
     if ( ( this.form.value.pmt === "cierres_totales" || this.form.value.pmt === "cierres_parciales" ) && this.form.value.promedioExcavacion > 2.5) {
-      console.log('entrè aqui 3');
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
@@ -756,25 +755,25 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Costo de cimentación de triturado
-    let costo_de_cimentacion_triturado = this.materiales.find(
+    let costo_de_cimentacion_triturado = this.materialcimentacion.find(
       e => e.value === "triturado"
     );
-    this.resultados["costo_de_cimentacion_triturado"] =
-      costo_de_cimentacion_triturado.precio *
-      this.resultados["cimentacion_triturado"];
+    this.resultados["costo_de_cimentacion_triturado"] = costo_de_cimentacion_triturado.precio *  this.resultados["cimentacion"];
 
     // Costo de cimentación de arenilla
-    let costo_de_cimentacion_arenilla = this.materiales.find(
+    let costo_de_cimentacion_arenilla = this.materialcimentacion.find(
       e => e.value === "arenilla"
     );
-    this.resultados["costo_de_cimentacion_arenilla"] =
-      costo_de_cimentacion_arenilla.precio *
-      this.resultados["cimentacion_arenilla"];
+    this.resultados["costo_de_cimentacion_arenilla"] = costo_de_cimentacion_arenilla.precio * this.resultados["cimentacion"];
 
     // Costo de cimentación de arenilla + triturado
-    this.resultados["costo_de_cimentacion_arenilla_mas_triturado"] =
-      this.resultados["costo_de_cimentacion_triturado"] *
-      this.resultados["costo_de_cimentacion_arenilla"];
+    this.resultados["costo_de_cimentacion_arenilla_mas_triturado"] = (costo_de_cimentacion_triturado.precio * this.resultados["cimentacion_triturado"]) + (costo_de_cimentacion_arenilla.precio * this.resultados["cimentacion_arenilla"]);
+
+    // Costo Botada de Material
+    let costo_de_volqueta = this.maquinas.find(
+      e => e.value === "volqueta"
+    );
+    this.resultados["costo_botada_material"] = costo_de_volqueta.viaje * this.resultados['cantidad_volquetas'];
 
     // Costo Instalacion de Tubería alcantarillado
     let costo_tuberia_alcantarillado = this.materiales.find(

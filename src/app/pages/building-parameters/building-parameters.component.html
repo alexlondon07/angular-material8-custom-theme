@@ -514,13 +514,13 @@
                     <mat-list-item role="listitem" *ngIf="this.resultados['costo_demolicion_mecanica_con_retro_320'] > 0">
                         <h4>Demolición mecánica con retroexcavadora 320 -----> </h4>COP {{ resultados['costo_demolicion_mecanica_con_retro_320'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="resultados['costo_de_cimentacion_triturado'] > 0">
                         <h4>Cimentación triturado -----> </h4>COP {{ resultados['costo_de_cimentacion_triturado'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="resultados['costo_de_cimentacion_arenilla'] > 0">
                         <h4>Cimentación arenilla -----> </h4>COP {{ resultados['costo_de_cimentacion_arenilla'] | currency }} </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="resultados['costo_de_cimentacion_arenilla_mas_triturado'] > 0">
                         <h4>Cimentación arenilla + triturado -----> </h4>COP {{ resultados['costo_de_cimentacion_arenilla_mas_triturado'] | currency }} </mat-list-item>
 
                     <mat-list-item role="listitem">
@@ -531,6 +531,10 @@
 
                     <mat-list-item role="listitem">
                         <h4>Rasante temporal -----> </h4>COP {{ resultados['costo_rasante_temporal'] | currency }} </mat-list-item>
+
+
+                    <mat-list-item role="listitem">
+                        <h4>Botada de Material -----> </h4>COP {{ resultados['costo_botada_material'] | currency }} </mat-list-item>
 
                 </mat-list>
             </div>
