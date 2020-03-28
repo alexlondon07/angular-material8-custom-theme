@@ -708,6 +708,9 @@ export class BuildingParametersComponent implements OnInit {
         break;
     }
 
+    let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(
+      e => e.value === "mini_cargador_con_martillo"
+    );
     switch (this.resultados["pmt_con_excavacion"]) {
       case this.mini_retro_o_mini_cargador:
         let costo_mini_retro = this.maquinas.find(
@@ -717,9 +720,6 @@ export class BuildingParametersComponent implements OnInit {
           costo_mini_retro.dia *
           this.resultados["rendimiento_excavacion_mecanica"];
 
-        let costo_mini_cargador_con_martillo_bocat = this.maquinas.find(
-          e => e.value === "mini_cargador_con_martillo"
-        );
         this.resultados["costo_excavacion_mini_cargador_con_martillo_bocat"] =
           costo_mini_cargador_con_martillo_bocat.dia *
           this.resultados["rendimiento_excavacion_mecanica"];
@@ -748,6 +748,11 @@ export class BuildingParametersComponent implements OnInit {
         this.resultados["costo_excavacion_mecanica_con_pajarita"] =
           costo_excavacion_mecanica_con_pajarita.dia *
           RENDMIENTO_EXCAVACION_MECANICA;
+
+        this.resultados["costo_excavacion_mini_cargador_con_martillo_bocat"] =
+          costo_mini_cargador_con_martillo_bocat.dia *
+          RENDMIENTO_EXCAVACION_MECANICA;
+
         break;
     }
 
