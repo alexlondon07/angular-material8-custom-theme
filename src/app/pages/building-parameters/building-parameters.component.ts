@@ -395,11 +395,8 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Cierres parciales o Cierres totales
-    if (
-      this.form.value.pmt === "cierres_totales" ||
-      (this.form.value.pmt === "cierres_parciales" &&
-        this.form.value.promedioExcavacion > 2.5)
-    ) {
+    if ( ( this.form.value.pmt === "cierres_totales" || this.form.value.pmt === "cierres_parciales" ) && this.form.value.promedioExcavacion > 2.5) {
+      console.log('entrè aqui 3');
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
