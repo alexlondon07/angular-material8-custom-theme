@@ -47,7 +47,7 @@ export const schema = {
       { value: 'triturado', name: 'Triturado', unidad: 'm3', precio: 91000 },
       { value: 'arenilla', name: 'Arenilla', unidad: 'm3', precio: 35000 },
       { value: 'subbase', name: 'Sub Base', unidad: 'm3', precio: 85000 },
-      { value: 'tuberia', name: 'Tubería', unidad: 'und', precio: 0 },
+      { value: 'tuberia_alcantarillado', name: 'Costo Tubería alcantarillado', unidad: 'und', precio: 816000 },
       { value: 'suelo_cemento', name: 'Suelo cemento', unidad: 'm3', precio: 105000 },
       { value: 'fresado', name: 'Fresado', unidad: 'm2', precio: 13565 },
     ],

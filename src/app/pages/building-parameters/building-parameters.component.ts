@@ -776,8 +776,11 @@ export class BuildingParametersComponent implements OnInit {
       this.resultados["costo_de_cimentacion_triturado"] *
       this.resultados["costo_de_cimentacion_arenilla"];
 
-    // Instalacion de tubería
-    this.resultados["costo_instalacion_de_tuberia"] = 0;
+    // Costo Instalacion de Tubería alcantarillado
+    let costo_tuberia_alcantarillado = this.materiales.find(
+      e => e.value === "tuberia_alcantarillado"
+    );
+    this.resultados["costo_instalacion_de_tuberia"] = (this.resultados['instalacion_tuberia'] / 6) * costo_tuberia_alcantarillado.precio;
 
     // Costo lleno compactado
     const lleno = this.form.value.material_lleno_compactado;
