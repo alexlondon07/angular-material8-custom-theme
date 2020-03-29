@@ -45,6 +45,7 @@ export class BuildingParametersComponent implements OnInit {
   cimentaciones = schema.cimentaciones;
   maquinas = schema.maquinas;
   materiales = schema.materiales;
+  manholes = schema.manholes;
 
   // Resultados
   resultados = {};
@@ -804,5 +805,22 @@ export class BuildingParametersComponent implements OnInit {
     );
     this.resultados["costo_rasante_temporal"] =
       costo_de_fresado.precio * this.resultados["rasante_temporal"];
+    
+    // Costo del manhole
+    let costo = { 
+      "precio": 0
+    };
+    if ( this.form.value.promedioExcavacion <= 1.5 ) {
+      costo = this.manholes.find( e => e.value === "manhole1");
+    }
+    if ( this.form.value.promedioExcavacion >= 1.5 && this.form.value.promedioExcavacion  <= 2.5) {
+      costo = this.manholes.find( e => e.value === "manhole2");
+    }
+    if ( this.form.value.promedioExcavacion > 2.5 ) {
+      costo = this.manholes.find( e => e.value === "manhole1");
+
+    }
+    this.resultados["costo_manhole"] = costo.precio;
+
   }
 }

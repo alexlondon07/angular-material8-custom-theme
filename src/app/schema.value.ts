@@ -78,5 +78,11 @@ export const schema = {
     ],
     "redimientos": [
       { value: 'excavacion_mecanica', name: 'Excavasión mecánica', rendimiento: 5.35, unidadmedida: 'm3'},
+    ],
+    "manholes": [
+      { value: 'manhole1', name: 'Manhole 1', precio: 1534567 }, // si altura promedio a excavación es < 1.5
+      { value: 'manhole2', name: 'Manhole 2', precio: 1789938  }, // si altura promedio a excavación entre >=1.5 y <= 2.5
+      { value: 'manhole3', name: 'Manhole 3', precio: 5226000  }, // si altura promedio a excavación es > 2.5
+
     ]
   }
