@@ -18,7 +18,7 @@ export const schema = {
       { value: 'ayudantes', name: 'Ayudantes', hora_noctura: 11440, salario_dia: 54263, recargo_dominical_hora: 32680},
       { value: 'oficiales', name: 'Oficiales', hora_noctura: 16328, salario_dia: 77467 , recargo_dominical_hora: 46664},
       { value: 'sst', name: 'SST' , hora_noctura: 18664, salario_dia: 88533, recargo_dominical_hora: 53320 },
-      { value: 'maestros', name: 'Maestros' , hora_noctura: 21000, salario_dia: 996000 , recargo_dominical_hora: 60000},
+      { value: 'maestros', name: 'Maestros' , hora_noctura: 21000, salario_dia: 99600 , recargo_dominical_hora: 60000},
       { value: 'ingenieros', name: 'Ingenieros' , hora_noctura: 29160 , salario_dia: 138333, recargo_dominical_hora: 83312},
     ],
     "materialcimentacion": [

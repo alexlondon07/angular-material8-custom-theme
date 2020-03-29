@@ -46,6 +46,7 @@ export class BuildingParametersComponent implements OnInit {
   maquinas = schema.maquinas;
   materiales = schema.materiales;
   manholes = schema.manholes;
+  personal = schema.personal;
 
   // Resultados
   resultados = {};
@@ -821,6 +822,53 @@ export class BuildingParametersComponent implements OnInit {
 
     }
     this.resultados["costo_manhole"] = costo.precio;
+
+
+
+    const dia_ingeniero = this.personal.find( e => e.value === "ingenieros");
+    const dia_sst = this.personal.find( e => e.value === "sst");
+    const dia_maestros = this.personal.find( e => e.value === "maestros");
+    const dia_oficiales = this.personal.find( e => e.value === "oficiales");
+    const dia_ayudantes = this.personal.find( e => e.value === "ayudantes");
+
+    // Costo de Personal
+    console.log(this.form.value.jornadas_horas);
+
+
+    switch (this.form.value.horarios_de_trabajo) {
+      case 'diurnos':
+        const cal0 = ( ( this.form.value.ingenieros * dia_ingeniero.salario_dia ) + ( this.form.value.sst * dia_sst.salario_dia ) + 
+        ( this.form.value.maestros * dia_maestros.salario_dia ) +
+        ( this.form.value.oficiales * dia_oficiales.salario_dia ) + ( this.form.value.ayudantes * dia_ayudantes.salario_dia ) ) ;
+        
+        const cal1 = cal0 *  this.resultados['rendimiento_orden_y_aseo'];
+
+        this.resultados["costo_personal"] = cal1;
+        break;
+
+      case 'nocturnos':
+        const cal2 = (this.form.value.ingenieros * (dia_ingeniero.salario_dia + dia_ingeniero.hora_noctura ) ) +
+        (this.form.value.sst * (dia_sst.salario_dia + dia_sst.hora_noctura )) +
+        (this.form.value.maestros * (dia_maestros.salario_dia + dia_maestros.hora_noctura )) +
+        (this.form.value.oficiales * (dia_oficiales.salario_dia + dia_oficiales.hora_noctura )) + 
+        (this.form.value.ayudantes * (dia_ayudantes.salario_dia + dia_ayudantes.hora_noctura )) ;
+
+        const cal3 = cal2 *  this.resultados['rendimiento_orden_y_aseo'];
+        this.resultados["costo_personal"] = cal3;
+        break;
+
+      case 'dominicales':
+        const cal4 = (this.form.value.ingenieros * (dia_ingeniero.salario_dia + dia_ingeniero.recargo_dominical_hora ) ) +
+        (this.form.value.sst * (dia_sst.salario_dia + dia_sst.recargo_dominical_hora )) +
+        (this.form.value.maestros * (dia_maestros.salario_dia + dia_maestros.recargo_dominical_hora )) +
+        (this.form.value.oficiales * (dia_oficiales.salario_dia + dia_oficiales.recargo_dominical_hora )) + 
+        (this.form.value.ayudantes * (dia_ayudantes.salario_dia + dia_ayudantes.recargo_dominical_hora )) ;
+
+        const cal5 = cal4 *  this.resultados['rendimiento_orden_y_aseo'];
+        this.resultados["costo_personal"] = cal5;
+        break;
+        break;
+    }
 
   }
 }
