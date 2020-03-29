@@ -823,18 +823,13 @@ export class BuildingParametersComponent implements OnInit {
     }
     this.resultados["costo_manhole"] = costo.precio;
 
-
-
+    // Costo de Personal
     const dia_ingeniero = this.personal.find( e => e.value === "ingenieros");
     const dia_sst = this.personal.find( e => e.value === "sst");
     const dia_maestros = this.personal.find( e => e.value === "maestros");
     const dia_oficiales = this.personal.find( e => e.value === "oficiales");
     const dia_ayudantes = this.personal.find( e => e.value === "ayudantes");
-
-    // Costo de Personal
-    console.log(this.form.value.jornadas_horas);
-
-
+    
     switch (this.form.value.horarios_de_trabajo) {
       case 'diurnos':
         const cal0 = ( ( this.form.value.ingenieros * dia_ingeniero.salario_dia ) + ( this.form.value.sst * dia_sst.salario_dia ) + 
