@@ -48,7 +48,6 @@ export class BuildingParametersComponent implements OnInit {
   manholes = schema.manholes;
   personal = schema.personal;
 
-  // Resultados
   resultados = {};
 
   constructor(public snackBar: MatSnackBar, private fb: FormBuilder) {}
@@ -868,6 +867,5 @@ export class BuildingParametersComponent implements OnInit {
         this.resultados["costo_personal"] = cal5;
         break;
     }
-
   }
 }
