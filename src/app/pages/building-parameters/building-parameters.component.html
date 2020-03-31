@@ -316,7 +316,7 @@
                     </mat-grid-tile>
 
                     <mat-grid-tile>
-                        <div class="text-inside">
+                        <div class="text-inside" *ngIf="this.form.value.ubicacion != 'zonaverde' ">
                             <mat-form-field>
                                 <mat-label>Demolición del pavimento (m3)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['demolicion_del_pavimento'] | number:'1.2-2'">
@@ -327,7 +327,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Excavación mecánica</mat-label>
+                                <mat-label>Excavación mecánica(ml)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['excavacion_mecanica'] | number:'1.2-2'">
                             </mat-form-field>
                         </div>
@@ -336,7 +336,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Instalación de tubería</mat-label>
+                                <mat-label>Instalación de tubería(ml)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['instalacion_tuberia'] | number:'1.2-2'">
                             </mat-form-field>
                         </div>
@@ -392,7 +392,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Botada de material</mat-label>
+                                <mat-label>Botada de material(ml)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['botada_material'] | number:'1.2-2'">
                             </mat-form-field>
                         </div>
