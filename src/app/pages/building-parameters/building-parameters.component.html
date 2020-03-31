@@ -187,7 +187,7 @@
                         <mat-grid-tile>
                             <div class="text-inside">
                                 <mat-form-field>
-                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Espesor Mat de lleno compactado" #material_lleno_espesor formControlName="material_lleno_espesor">
+                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Espesor Mat de lleno compactado(ml)" #material_lleno_espesor formControlName="material_lleno_espesor">
                                     <mat-error *ngIf="form.controls['material_lleno_espesor'].errors?.required">
                                         {{ requiredField }}</mat-error>
                                 </mat-form-field>
@@ -392,7 +392,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Botada de material(ml)</mat-label>
+                                <mat-label>Botada de material(m3)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['botada_material'] | number:'1.2-2'">
                             </mat-form-field>
                         </div>
@@ -401,7 +401,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Manhole</mat-label>
+                                <mat-label>Manhole(und)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['manhole'] | number:'1.2-2'">
                             </mat-form-field>
                         </div>
@@ -411,7 +411,7 @@
                     <mat-grid-tile>
                         <div class="text-inside">
                             <mat-form-field>
-                                <mat-label>Cantidad de volquetas</mat-label>
+                                <mat-label>Cantidad de volquetas(und)</mat-label>
                                 <input disabled matInput type="text" [value]="resultados['cantidad_volquetas']">
                             </mat-form-field>
                         </div>
@@ -427,17 +427,17 @@
                     <mat-list-item role="listitem" *ngIf="this.form.value.ubicacion != 'zonaverde' ">
                         <h4>Para demolición utilizar -----> </h4> {{ resultados['demolicion'] }}</mat-list-item>
                     <mat-list-item role="listitem">
-                        <h4>PMT con excavacion -----> </h4> {{ resultados['pmt_con_excavacion'] }}</mat-list-item>
+                        <h4>Excavacion Mecánica -----> </h4> {{ resultados['pmt_con_excavacion'] }}</mat-list-item>
                     <mat-list-item role="listitem" *ngIf="form.controls['materialcimentacion'].value === 'arenilla' || form.controls['materialcimentacion'].value === 'triturado' ">
-                        <h4>Cimentación de tubería -----> </h4> {{ resultados['cimentacion_de_tuberia'] }}</mat-list-item>
+                        <h4>Cimentación de tubería </h4> {{ resultados['cimentacion_de_tuberia'] }}</mat-list-item>
                     <mat-list-item role="listitem">
-                        <h4>Actividad por jornal -----> </h4> {{ resultados['actividad_por_jornal'] }}</mat-list-item>
+                        <h4>Actividad por jornal </h4> {{ resultados['actividad_por_jornal'] }}</mat-list-item>
                     <mat-list-item role="listitem">
                         <h4>Instalación de tubería -----></h4> {{ resultados['instalacion_de_tuberia'] }}</mat-list-item>
                     <mat-list-item role="listitem">
                         <h4>Botada de material -----> </h4> {{ resultados['botada_material_equipo'] }}</mat-list-item>
                     <mat-list-item role="listitem">
-                        <h4>Rasante en la víal -----> </h4> {{ resultados['rasante_en_la_via'] }}</mat-list-item>
+                        <h4>Rasante de vía -----> </h4> {{ resultados['rasante_en_la_via'] }}</mat-list-item>
                 </mat-list>
             </div>
         </mat-tab>
@@ -480,6 +480,9 @@
         </mat-tab>
         <mat-tab label="Costos">
             <div>
+
+                <p>El costo de estas sub actividades que emplean personal, equipos y materiales es de cada actividad por separado y arrojan un costo total en la ejecución de la construcción de la red de alcantarillado.</p>
+
                 <mat-list role="list">
                     <mat-list-item role="listitem">
                         <h4>Corte de pavimento -----> </h4>COP {{ resultados['costo_corte_de_pavimento'] | currency }} </mat-list-item>

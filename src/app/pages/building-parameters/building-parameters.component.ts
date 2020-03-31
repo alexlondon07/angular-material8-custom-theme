@@ -284,7 +284,7 @@ export class BuildingParametersComponent implements OnInit {
    */
   materialcimentacionChange() {
     if (this.form.value.materialcimentacion === this.triturado) {
-      this.placeholderEspesor = "Espesor Triturado";
+      this.placeholderEspesor = "Espesor Triturado(ml)";
 
       this.calcularEspesorArenillaEspesorTriturado();
     }
@@ -292,7 +292,7 @@ export class BuildingParametersComponent implements OnInit {
       this.form.value.materialcimentacion === this.arenilla_triturado ||
       this.form.value.materialcimentacion === this.arenilla
     ) {
-      this.placeholderEspesor = "Espesor Arenilla";
+      this.placeholderEspesor = "Espesor Arenilla(ml)";
 
       if (this.form.value.materialcimentacion === this.arenilla) {
         this.calcularEspesorArenillaEspesorTriturado();
@@ -866,7 +866,6 @@ export class BuildingParametersComponent implements OnInit {
 
         const cal5 = cal4 *  this.resultados['rendimiento_orden_y_aseo'];
         this.resultados["costo_personal"] = cal5;
-        break;
         break;
     }
 
