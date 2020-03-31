@@ -162,7 +162,7 @@
                         <mat-grid-tile>
                             <div class="text-inside">
                                 <mat-form-field>
-                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Radio de tubería" #radio_de_tuberia formControlName="radio_de_tuberia">
+                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Radio de tubería(ml)" #radio_de_tuberia formControlName="radio_de_tuberia">
                                     <mat-error *ngIf="form.controls['radio_de_tuberia'].errors?.required">
                                         {{ requiredField }}</mat-error>
                                 </mat-form-field>
