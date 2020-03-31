@@ -58,7 +58,7 @@
                         <mat-grid-tile>
                             <div class="text-inside">
                                 <mat-form-field>
-                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Ancho brecha" #anchobrecha formControlName="anchobrecha">
+                                    <input (change)="calcularResultados()" autocomplete="off" required matInput type="text" numeric-decimal decimals="2" placeholder="Ancho brecha(ml)" #anchobrecha formControlName="anchobrecha">
                                     <mat-error *ngIf="form.controls['anchobrecha'].errors?.required">{{ requiredField }}
                                     </mat-error>
                                 </mat-form-field>
@@ -153,7 +153,7 @@
                         <mat-grid-tile *ngIf="form.controls['materialcimentacion'].value === 'arenilla_triturado'">
                             <div class="text-inside">
                                 <mat-form-field>
-                                    <input (change)="calcularResultados()" autocomplete="off" matInput type="text" numeric-decimal decimals="2" placeholder="Espesor Triturado" #material_cimentacion_espesor_2 formControlName="material_cimentacion_espesor_2">
+                                    <input (change)="calcularResultados()" autocomplete="off" matInput type="text" numeric-decimal decimals="2" placeholder="Espesor Triturado(ml)" #material_cimentacion_espesor_2 formControlName="material_cimentacion_espesor_2">
 
                                 </mat-form-field>
                             </div>
@@ -424,11 +424,11 @@
         <mat-tab label="Equipo de trabajo ">
             <div>
                 <mat-list role="list">
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="this.form.value.ubicacion != 'zonaverde' ">
                         <h4>Para demolición utilizar -----> </h4> {{ resultados['demolicion'] }}</mat-list-item>
                     <mat-list-item role="listitem">
                         <h4>PMT con excavacion -----> </h4> {{ resultados['pmt_con_excavacion'] }}</mat-list-item>
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="form.controls['materialcimentacion'].value === 'arenilla' || form.controls['materialcimentacion'].value === 'triturado' ">
                         <h4>Cimentación de tubería -----> </h4> {{ resultados['cimentacion_de_tuberia'] }}</mat-list-item>
                     <mat-list-item role="listitem">
                         <h4>Actividad por jornal -----> </h4> {{ resultados['actividad_por_jornal'] }}</mat-list-item>
@@ -450,7 +450,7 @@
                     <mat-list-item role="listitem">
                         <h4>Corte de pavimento -----> </h4> {{ resultados['rendimiento_corte_de_pavimento'] }} días </mat-list-item>
 
-                    <mat-list-item role="listitem">
+                    <mat-list-item role="listitem" *ngIf="this.form.value.ubicacion != 'zonaverde' ">
                         <h4>Demolición del pavimento -----> </h4> {{ resultados['rendimiento_demolicion_del_pavimento'] }} días </mat-list-item>
 
                     <mat-list-item role="listitem">

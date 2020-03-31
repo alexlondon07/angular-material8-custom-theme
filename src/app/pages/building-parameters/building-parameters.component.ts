@@ -20,7 +20,7 @@ export class BuildingParametersComponent implements OnInit {
   public form: FormGroup;
   submitted = false;
   requiredField = "Este campo es obligatorio";
-  placeholderEspesor = "Espesor Arenilla";
+  placeholderEspesor = "Espesor Arenilla(ml)";
   falta = 0;
   triturado = "triturado";
   arenilla = "arenilla";
@@ -90,7 +90,7 @@ export class BuildingParametersComponent implements OnInit {
       material_lleno_compactado: new FormControl("subbase", [
         Validators.required
       ]),
-      material_lleno_espesor: new FormControl(1, [Validators.required]),
+      material_lleno_espesor: new FormControl('', [Validators.required]),
       diametro_tuberia: new FormControl(27, [Validators.required]),
       tipo_rasante_provisional: new FormControl("fresado", [
         Validators.required
@@ -101,7 +101,7 @@ export class BuildingParametersComponent implements OnInit {
       pmt: new FormControl("cierres_parciales", [Validators.required]),
       carriles_permitidos: new FormControl(1, [Validators.required]),
       cimentacion: new FormControl("tipo1", [Validators.required]),
-      radio_de_tuberia: new FormControl(0.34, [Validators.required]),
+      radio_de_tuberia: new FormControl('', [Validators.required]),
       cama_de_cimentacion: new FormControl(0.15, [Validators.required]),
       espesor_suelo_cemento: new FormControl(0.1, [Validators.required]),
       manhole_a_contruir: new FormControl(1, [Validators.required])
@@ -149,12 +149,6 @@ export class BuildingParametersComponent implements OnInit {
     this.resultados[
       "instalacion_tuberia"
     ] = this.form.value.longitud_tuberia_excabar;
-
-    // LLeno compactado
-    this.resultados["lleno_compactado"] =
-      this.form.value.longitud_tuberia_excabar *
-      this.form.value.anchobrecha *
-      this.form.value.material_lleno_espesor;
 
     // Rasante Temporal
     this.resultados["rasante_temporal"] =
@@ -248,12 +242,23 @@ export class BuildingParametersComponent implements OnInit {
     // Cantidad de volquetas
     let botada = this.resultados["botada_material"] / 15;
     this.resultados["cantidad_volquetas"] = botada.toFixed();
+
+    // LLeno compactado
+    this.resultados["lleno_compactado"] =
+      this.form.value.longitud_tuberia_excabar *
+      this.form.value.anchobrecha *
+      this.form.value.material_lleno_espesor;
   }
 
   /**
    * Calcular el espesor de arenilla y espesor triturado
    */
   calcularEspesorArenillaEspesorTriturado() {
+
+    // Se calcula el radio de tubería
+    let radio_de_tuberia = (this.form.value.diametro_tuberia * 0.0254) / 2;
+    this.form.get("radio_de_tuberia").setValue(radio_de_tuberia.toFixed(2));
+
     let opcion = this.form.value.materialcimentacion;
     if (opcion === "arenilla_triturado") {
       // Calcular espesor arenilla
@@ -349,7 +354,7 @@ export class BuildingParametersComponent implements OnInit {
     if (this.form.value.pmt === "cierres_parciales") {
       if (
         this.form.value.carriles_permitidos <= 3 &&
-        this.form.value.diametro_tuberia < 40 &&
+        this.form.value.diametro_tuberia <= 40 &&
         this.form.value.promedioExcavacion < 2.5
       ) {
         this.resultados["pmt_con_excavacion"] = this.mini_retro_o_mini_cargador;
@@ -397,7 +402,7 @@ export class BuildingParametersComponent implements OnInit {
     }
 
     // Cierres parciales o Cierres totales
-    if ( ( this.form.value.pmt === "cierres_totales" || this.form.value.pmt === "cierres_parciales" ) && this.form.value.promedioExcavacion > 2.5) {
+    if ( ( this.form.value.pmt === "cierres_totales" || this.form.value.pmt === "cierres_parciales" ) && this.form.value.promedioExcavacion >= 2.5) {
       this.resultados["pmt_con_excavacion"] = this.retro_excavadora_120_320;
     }
 
@@ -814,11 +819,11 @@ export class BuildingParametersComponent implements OnInit {
     if ( this.form.value.promedioExcavacion <= 1.5 ) {
       costo = this.manholes.find( e => e.value === "manhole1");
     }
-    if ( this.form.value.promedioExcavacion >= 1.5 && this.form.value.promedioExcavacion  <= 2.5) {
+    if ( this.form.value.promedioExcavacion > 1.5 && this.form.value.promedioExcavacion  <= 2.5) {
       costo = this.manholes.find( e => e.value === "manhole2");
     }
     if ( this.form.value.promedioExcavacion > 2.5 ) {
-      costo = this.manholes.find( e => e.value === "manhole1");
+      costo = this.manholes.find( e => e.value === "manhole3");
 
     }
     this.resultados["costo_manhole"] = costo.precio;
